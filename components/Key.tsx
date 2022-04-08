@@ -1,15 +1,10 @@
 import React, { useMemo } from 'react';
+import { KeyInfo } from '../context/KeyboardContext';
 
 interface KeyProps {
   keyText: string;
   keyWidth?: KeyWidth;
-  info: KeyInfo | undefined;
-}
-
-export interface KeyInfo {
-  lastPress: Date;
-  wasReleased: boolean;
-  minElapsedMs?: number;
+  info?: KeyInfo;
 }
 
 export type KeyWidth =
@@ -78,7 +73,11 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
 
   return (
     <div
-      className={`h-12 p-1 font-mono ${widthStyles[keyWidth]} border-2 border-solid ${statusStyles[status].border} bg-slate-200 leading-none ${statusStyles[status].text}`}
+      className={`h-12 p-1 font-mono ${
+        widthStyles[keyWidth]
+      } border-2 border-solid ${statusStyles[status].border} ${
+        info?.isDown ? 'bg-slate-300' : 'bg-slate-200'
+      } leading-none ${statusStyles[status].text}`}
     >
       {keyText}
     </div>
