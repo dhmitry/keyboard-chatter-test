@@ -1,86 +1,195 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import React, { useCallback, useState } from 'react';
+import type { NextPage } from 'next';
+import Key, { KeyInfo } from '../components/Key';
+import Row from '../components/Row';
 
-const Home: NextPage = () => {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
+interface Keys {
+  [Key: string]: KeyInfo | undefined;
 }
 
-export default Home
+const Home: NextPage = () => {
+  const [keys, setKeys] = useState<Keys>({});
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      const prevKeyInfo = keys[key];
+
+      const currentTime = new Date();
+
+      let newKeyInfo: KeyInfo = {
+        lastPress: currentTime,
+        elapsedMs: 0,
+        minElapsedMs: 0,
+        wasReleased: false,
+      };
+
+      let keyChanged = false;
+
+      if (prevKeyInfo) {
+        if (prevKeyInfo.wasReleased) {
+          const newElapsedMs =
+            currentTime.valueOf() - prevKeyInfo.lastPress.valueOf();
+
+          const newMinElapsedMs =
+            prevKeyInfo.minElapsedMs == 0
+              ? newElapsedMs
+              : Math.min(newElapsedMs, prevKeyInfo.minElapsedMs);
+
+          newKeyInfo = {
+            lastPress: currentTime,
+            elapsedMs: newElapsedMs,
+            minElapsedMs: newMinElapsedMs,
+            wasReleased: false,
+          };
+
+          keyChanged = true;
+        }
+      } else {
+        keyChanged = true;
+      }
+
+      if (keyChanged) {
+        const newKeys = {
+          ...keys,
+          [key]: newKeyInfo,
+        };
+
+        setKeys(newKeys);
+      }
+
+      event.preventDefault();
+    },
+    [keys]
+  );
+
+  const handleKeyUp = useCallback(
+    (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      const keyInfo = keys[key];
+
+      if (keyInfo) {
+        const newKeyInfo: KeyInfo = {
+          ...keyInfo,
+          wasReleased: true,
+        };
+
+        const newKeys = {
+          ...keys,
+          [key]: newKeyInfo,
+        };
+
+        setKeys(newKeys);
+      }
+
+      event.preventDefault();
+    },
+    [keys]
+  );
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [handleKeyDown, handleKeyUp]);
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+      <Row>
+        <Key keyText="esc" info={keys['escape']} />
+        <Key keyText="1" info={keys['1']} />
+        <Key keyText="2" info={keys['2']} />
+        <Key keyText="3" info={keys['3']} />
+        <Key keyText="4" info={keys['4']} />
+        <Key keyText="5" info={keys['5']} />
+        <Key keyText="6" info={keys['6']} />
+        <Key keyText="7" info={keys['7']} />
+        <Key keyText="8" info={keys['8']} />
+        <Key keyText="9" info={keys['9']} />
+        <Key keyText="0" info={keys['0']} />
+        <Key keyText="-" info={keys['-']} />
+        <Key keyText="=" info={keys['=']} />
+        <Key keyText="backspace" keyWidth="2" info={keys['backspace']} />
+      </Row>
+      <Row>
+        <Key keyText="tab" keyWidth="1.5" info={keys['tab']} />
+        <Key keyText="q" info={keys['q']} />
+        <Key keyText="w" info={keys['w']} />
+        <Key keyText="e" info={keys['e']} />
+        <Key keyText="r" info={keys['r']} />
+        <Key keyText="t" info={keys['t']} />
+        <Key keyText="y" info={keys['y']} />
+        <Key keyText="u" info={keys['u']} />
+        <Key keyText="i" info={keys['i']} />
+        <Key keyText="o" info={keys['o']} />
+        <Key keyText="p" info={keys['p']} />
+        <Key keyText="[" info={keys['[']} />
+        <Key keyText="]" info={keys[']']} />
+        <Key keyText="\" keyWidth="1.5" info={keys['\\']} />
+      </Row>
+      <Row>
+        <Key keyText="caps" keyWidth="1.875" info={keys['capslock']} />
+        <Key keyText="a" info={keys['a']} />
+        <Key keyText="s" info={keys['s']} />
+        <Key keyText="d" info={keys['d']} />
+        <Key keyText="f" info={keys['f']} />
+        <Key keyText="g" info={keys['g']} />
+        <Key keyText="h" info={keys['h']} />
+        <Key keyText="j" info={keys['j']} />
+        <Key keyText="k" info={keys['k']} />
+        <Key keyText="l" info={keys['l']} />
+        <Key keyText=";" info={keys[';']} />
+        <Key keyText="'" info={keys["'"]} />
+        <Key keyText="enter" keyWidth="2.25" info={keys['enter']} />
+      </Row>
+      <Row>
+        {
+          // TODO: differentiate left shift
+        }
+        <Key keyText="shift" keyWidth="2.5" info={keys['shift']} />
+        <Key keyText="z" info={keys['z']} />
+        <Key keyText="x" info={keys['x']} />
+        <Key keyText="c" info={keys['c']} />
+        <Key keyText="v" info={keys['v']} />
+        <Key keyText="b" info={keys['b']} />
+        <Key keyText="n" info={keys['n']} />
+        <Key keyText="m" info={keys['m']} />
+        <Key keyText="," info={keys[',']} />
+        <Key keyText="." info={keys['.']} />
+        <Key keyText="/" info={keys['/']} />
+        {
+          // TODO: differentiate right shift
+        }
+        <Key keyText="shift" keyWidth="2.75" info={keys['shift']} />
+      </Row>
+      <Row>
+        {
+          // TODO: differentiate left ctrl
+        }
+        <Key keyText="ctrl" keyWidth="1.25" info={keys['control']} />
+        <Key keyText="win" keyWidth="1.25" info={keys['meta']} />
+        {
+          // TODO: differentiate left alt
+        }
+        <Key keyText="alt" keyWidth="1.25" info={keys['alt']} />
+        <Key keyText="space" keyWidth="7.25" info={keys[' ']} />
+        {
+          // TODO: differentiate right alt
+        }
+        <Key keyText="alt" keyWidth="1.25" info={keys['alt']} />
+        <Key keyText="" keyWidth="1.25" info={undefined} />
+        <Key keyText="" keyWidth="1.25" info={undefined} />
+        {
+          // TODO: differentiate right ctrl
+        }
+        <Key keyText="ctrl" info={keys['control']} />{' '}
+      </Row>
+    </div>
+  );
+};
+
+export default Home;

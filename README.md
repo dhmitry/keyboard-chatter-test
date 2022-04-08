@@ -21,3 +21,11 @@ pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+# TODO
+
+List of things to do when bored:
+- [ ] Full ANSI layout
+- [ ] Key press animations
+- [ ] Key press sounds
+- [ ] Generate sample text for typing
