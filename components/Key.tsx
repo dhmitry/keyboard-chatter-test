@@ -9,7 +9,7 @@ interface KeyProps {
 export interface KeyInfo {
   lastPress: Date;
   wasReleased: boolean;
-  minElapsedMs: number; // TODO: make possible to be undefined before the second press
+  minElapsedMs?: number;
 }
 
 export type KeyWidth =
@@ -64,9 +64,9 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
     let status = Status.Blank;
 
     if (info) {
-      if (info.minElapsedMs === 0) {
+      if (info.minElapsedMs === undefined) {
         status = Status.Pressed;
-      } else if (info.minElapsedMs < 60) {
+      } else if (info.minElapsedMs && info.minElapsedMs < 60) {
         status = Status.Broken;
       } else {
         status = Status.Healthy;

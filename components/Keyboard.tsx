@@ -18,7 +18,7 @@ const Keyboard = (): JSX.Element => {
 
       let newKeyInfo: KeyInfo = {
         lastPress: currentTime,
-        minElapsedMs: 0,
+        minElapsedMs: undefined,
         wasReleased: false,
       };
 
@@ -30,7 +30,7 @@ const Keyboard = (): JSX.Element => {
             currentTime.valueOf() - prevKeyInfo.lastPress.valueOf();
 
           const newMinElapsedMs =
-            prevKeyInfo.minElapsedMs == 0
+            prevKeyInfo.minElapsedMs === undefined
               ? newElapsedMs
               : Math.min(newElapsedMs, prevKeyInfo.minElapsedMs);
 
