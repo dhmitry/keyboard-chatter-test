@@ -17,12 +17,11 @@ export type KeyWidth =
   | '1'
   | '1.25'
   | '1.5'
-  | '1.875'
+  | '1.75'
   | '2'
   | '2.25'
-  | '2.5'
   | '2.75'
-  | '7.25';
+  | '6.25';
 
 enum Status {
   Blank,
@@ -33,15 +32,14 @@ enum Status {
 
 const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   const widthStyles = {
-    '1': 'w-16',
-    '1.25': 'w-20',
-    '1.5': 'w-24',
-    '1.875': 'w-30',
-    '2': 'w-32',
-    '2.25': 'w-36',
-    '2.5': 'w-40',
-    '2.75': 'w-44',
-    '7.25': 'w-116',
+    '1': 'w-12',
+    '1.25': 'w-15',
+    '1.5': 'w-18',
+    '1.75': 'w-21',
+    '2': 'w-24',
+    '2.25': 'w-27',
+    '2.75': 'w-33',
+    '6.25': 'w-75',
   };
 
   const statusStyles = {
@@ -69,7 +67,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
 
   return (
     <div
-      className={`m-1 h-16 ${widthStyles[keyWidth]} rounded-md border border-solid ${statusStyles[status]}`}
+      className={`h-12 ${widthStyles[keyWidth]} rounded-md border border-solid ${statusStyles[status]}`}
     >
       {keyText} {info ? `${info.elapsedMs} (${info.minElapsedMs})` : ''}
     </div>

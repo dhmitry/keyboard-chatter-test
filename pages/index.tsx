@@ -132,7 +132,7 @@ const Home: NextPage = () => {
         <Key keyText="\" keyWidth="1.5" info={keys['\\']} />
       </Row>
       <Row>
-        <Key keyText="caps" keyWidth="1.875" info={keys['capslock']} />
+        <Key keyText="caps" keyWidth="1.75" info={keys['capslock']} />
         <Key keyText="a" info={keys['a']} />
         <Key keyText="s" info={keys['s']} />
         <Key keyText="d" info={keys['d']} />
@@ -150,7 +150,7 @@ const Home: NextPage = () => {
         {
           // TODO: differentiate left shift
         }
-        <Key keyText="shift" keyWidth="2.5" info={keys['shift']} />
+        <Key keyText="shift" keyWidth="2.25" info={keys['shift']} />
         <Key keyText="z" info={keys['z']} />
         <Key keyText="x" info={keys['x']} />
         <Key keyText="c" info={keys['c']} />
@@ -176,7 +176,7 @@ const Home: NextPage = () => {
           // TODO: differentiate left alt
         }
         <Key keyText="alt" keyWidth="1.25" info={keys['alt']} />
-        <Key keyText="space" keyWidth="7.25" info={keys[' ']} />
+        <Key keyText="space" keyWidth="6.25" info={keys[' ']} />
         {
           // TODO: differentiate right alt
         }
@@ -186,7 +186,7 @@ const Home: NextPage = () => {
         {
           // TODO: differentiate right ctrl
         }
-        <Key keyText="ctrl" info={keys['control']} />{' '}
+        <Key keyText="ctrl" keyWidth="1.25" info={keys['control']} />{' '}
       </Row>
     </div>
   );
