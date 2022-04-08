@@ -9,7 +9,6 @@ interface KeyProps {
 export interface KeyInfo {
   lastPress: Date;
   wasReleased: boolean;
-  elapsedMs: number; // TODO: make possible to be undefined before the second press
   minElapsedMs: number; // TODO: make possible to be undefined before the second press
 }
 
@@ -43,10 +42,22 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   };
 
   const statusStyles = {
-    [Status.Blank]: 'border-slate-400',
-    [Status.Pressed]: 'border-yellow-400',
-    [Status.Healthy]: 'border-green-400',
-    [Status.Broken]: 'border-red-500',
+    [Status.Blank]: {
+      border: 'border-slate-400',
+      text: 'text-slate-700',
+    },
+    [Status.Pressed]: {
+      border: 'border-yellow-400',
+      text: 'text-yellow-700',
+    },
+    [Status.Healthy]: {
+      border: 'border-green-400',
+      text: 'text-green-700',
+    },
+    [Status.Broken]: {
+      border: 'border-red-500',
+      text: 'text-red-800',
+    },
   };
 
   const status = useMemo(() => {
@@ -67,9 +78,9 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
 
   return (
     <div
-      className={`h-12 p-1 font-mono ${widthStyles[keyWidth]} border-2 border-solid ${statusStyles[status]} bg-slate-200 leading-none text-slate-800`}
+      className={`h-12 p-1 font-mono ${widthStyles[keyWidth]} border-2 border-solid ${statusStyles[status].border} bg-slate-200 leading-none ${statusStyles[status].text}`}
     >
-      {keyText} {info ? `${info.elapsedMs} (${info.minElapsedMs})` : ''}
+      {keyText}
     </div>
   );
 };

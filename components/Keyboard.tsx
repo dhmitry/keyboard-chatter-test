@@ -18,7 +18,6 @@ const Keyboard = (): JSX.Element => {
 
       let newKeyInfo: KeyInfo = {
         lastPress: currentTime,
-        elapsedMs: 0,
         minElapsedMs: 0,
         wasReleased: false,
       };
@@ -37,7 +36,6 @@ const Keyboard = (): JSX.Element => {
 
           newKeyInfo = {
             lastPress: currentTime,
-            elapsedMs: newElapsedMs,
             minElapsedMs: newMinElapsedMs,
             wasReleased: false,
           };
