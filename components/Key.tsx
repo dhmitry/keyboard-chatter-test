@@ -43,7 +43,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   };
 
   const statusStyles = {
-    [Status.Blank]: 'border-gray-300',
+    [Status.Blank]: 'border-slate-400',
     [Status.Pressed]: 'border-yellow-400',
     [Status.Healthy]: 'border-green-400',
     [Status.Broken]: 'border-red-500',
@@ -67,7 +67,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
 
   return (
     <div
-      className={`h-12 ${widthStyles[keyWidth]} rounded-md border border-solid ${statusStyles[status]}`}
+      className={`h-12 p-1 font-mono ${widthStyles[keyWidth]} border-2 border-solid ${statusStyles[status]} bg-slate-200 leading-none text-slate-800`}
     >
       {keyText} {info ? `${info.elapsedMs} (${info.minElapsedMs})` : ''}
     </div>
