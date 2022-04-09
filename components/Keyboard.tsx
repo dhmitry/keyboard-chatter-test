@@ -8,8 +8,8 @@ const Keyboard = (): JSX.Element => {
   const { keys } = useKeyboard();
 
   return (
-    <div className="border-8 border-slate-300 ">
-      <div className="border border-slate-400">
+    <div className="border-8 border-zinc-700 transition-colors duration-300 dark:border-slate-300">
+      <div className="border border-zinc-800 transition-colors duration-300 dark:border-slate-400">
         <Row>
           <Key keyText="esc" info={keys[KeyCode.Escape]} />
           <Key keyText="1" info={keys[KeyCode.Digit1]} />

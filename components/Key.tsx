@@ -37,22 +37,10 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   };
 
   const statusStyles = {
-    [Status.Blank]: {
-      border: 'border-slate-400',
-      text: 'text-slate-700',
-    },
-    [Status.Pressed]: {
-      border: 'border-yellow-400',
-      text: 'text-yellow-700',
-    },
-    [Status.Healthy]: {
-      border: 'border-green-400',
-      text: 'text-green-700',
-    },
-    [Status.Broken]: {
-      border: 'border-red-500',
-      text: 'text-red-800',
-    },
+    [Status.Blank]: 'dark:text-slate-600 text-zinc-400',
+    [Status.Pressed]: 'text-yellow-500',
+    [Status.Healthy]: 'text-green-600',
+    [Status.Broken]: 'text-red-600',
   };
 
   const status = useMemo(() => {
@@ -75,9 +63,11 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
     <div
       className={`h-12 p-1 font-mono ${
         widthStyles[keyWidth]
-      } border-2 border-solid ${statusStyles[status].border} ${
-        info?.isDown ? 'bg-slate-300' : 'bg-slate-200'
-      } leading-none ${statusStyles[status].text}`}
+      } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
+        info?.isDown
+          ? 'bg-zinc-700 dark:bg-slate-300'
+          : 'bg-zinc-600 transition-colors duration-300 dark:bg-slate-200'
+      } leading-none ${statusStyles[status]}`}
     >
       {keyText}
     </div>
