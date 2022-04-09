@@ -28,6 +28,7 @@ The production version from the latest commit is built and deployed automaticall
 List of things to do when bored:
 - [ ] Full ANSI layout
 - [x] ~~Light/dark mode toggle~~
+- [ ] Save Settings to localStorage
 - [ ] Broken (red) key fade to Pressed (yellow)
 - [ ] Key press sounds
 - [ ] Generate sample text for typing

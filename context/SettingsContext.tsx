@@ -23,7 +23,7 @@ interface SettingsProviderProps {
 export const SettingsProvider = ({
   children,
 }: SettingsProviderProps): JSX.Element => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   useEffect(() => {
     const prefersDarkMode = window.matchMedia(
