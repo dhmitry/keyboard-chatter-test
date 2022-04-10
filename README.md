@@ -28,7 +28,7 @@ The production version from the latest commit is built and deployed automaticall
 List of things to do when bored:
 - [ ] Full ANSI layout
 - [x] ~~Light/dark mode toggle~~
-- [X] ~~~Save settings to `localStorage`~~~
+- [X] ~~Save settings to `localStorage`~~
 - [ ] Broken (red) key fade to Pressed (yellow)
 - [ ] Add [popper.js](https://popper.js.org/) for tooltips
 - [ ] Key press sounds
