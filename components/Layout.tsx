@@ -15,6 +15,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
     <div className={isDarkMode ? 'dark' : ''}>
       <Head>
         <title>Keyboard Chatter Test</title>
+        <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {isLoading ? null : (
