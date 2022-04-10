@@ -13,6 +13,10 @@ interface SettingsState {
   setEnableAnimations: (enableAnimations: boolean) => void;
 }
 
+interface SavedSettings {
+  isDarkMode: boolean;
+}
+
 const defaultState: SettingsState = {
   isDarkMode: null,
   setIsDarkMode: () => {},
@@ -36,16 +40,24 @@ export const SettingsProvider = ({
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (isDarkMode === null) {
-      const prefersDarkMode = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
+    if (isDarkMode !== null) {
+      return;
+    }
 
-      if (prefersDarkMode) {
-        setIsDarkMode(true);
-      } else {
-        setIsDarkMode(false);
-      }
+    const savedSettings = load();
+    if (savedSettings !== null) {
+      setIsDarkMode(savedSettings.isDarkMode);
+      return;
+    }
+
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+
+    if (prefersDarkMode) {
+      setIsDarkMode(true);
+    } else {
+      setIsDarkMode(false);
     }
   }, [isDarkMode]);
 
@@ -55,11 +67,50 @@ export const SettingsProvider = ({
     [enableAnimations]
   );
 
+  const settingsKey = 'settings';
+
+  const load = (): SavedSettings | null => {
+    const settingsJson = localStorage.getItem(settingsKey);
+
+    if (settingsJson === null) {
+      return null;
+    }
+
+    let savedSettings: SavedSettings | null = null;
+    try {
+      savedSettings = JSON.parse(settingsJson);
+    } catch {
+      // clear saved settings if JSON is invaliid
+      localStorage.removeItem(settingsKey);
+    }
+
+    return savedSettings;
+  };
+
+  const save = (savedSettings: SavedSettings) => {
+    if (isDarkMode === null) {
+      return;
+    }
+
+    const settingsJson = JSON.stringify(savedSettings);
+    localStorage.setItem(settingsKey, settingsJson);
+  };
+
+  const handleSetIsDarkMode = (isDarkMode: boolean) => {
+    setIsDarkMode(isDarkMode);
+
+    const savedSettings: SavedSettings = {
+      isDarkMode,
+    };
+
+    save(savedSettings);
+  };
+
   return (
     <SettingsContext.Provider
       value={{
         isDarkMode,
-        setIsDarkMode,
+        setIsDarkMode: handleSetIsDarkMode,
         animationsClasses,
         setEnableAnimations,
       }}
