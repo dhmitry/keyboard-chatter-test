@@ -1,12 +1,12 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 
 interface SettingsState {
-  isDarkMode: boolean;
+  isDarkMode: boolean | null;
   setIsDarkMode: (isDarkMode: boolean) => void;
 }
 
 const defaultState: SettingsState = {
-  isDarkMode: true,
+  isDarkMode: null,
   setIsDarkMode: () => {},
 };
 
@@ -23,7 +23,7 @@ interface SettingsProviderProps {
 export const SettingsProvider = ({
   children,
 }: SettingsProviderProps): JSX.Element => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
     const prefersDarkMode = window.matchMedia(
