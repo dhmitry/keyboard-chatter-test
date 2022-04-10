@@ -30,6 +30,7 @@ List of things to do when bored:
 - [x] ~~Light/dark mode toggle~~
 - [X] ~~~Save settings to `localStorage`~~~
 - [ ] Broken (red) key fade to Pressed (yellow)
+- [ ] Add [popper.js](https://popper.js.org/) for tooltips
 - [ ] Key press sounds
 - [ ] Generate sample text for typing
 
