@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 interface SettingsState {
+  prefersDarkMode: boolean | null;
   isDarkMode: boolean | null;
   setIsDarkMode: (isDarkMode: boolean) => void;
   animationsClasses: string;
@@ -18,6 +19,7 @@ interface SavedSettings {
 }
 
 const defaultState: SettingsState = {
+  prefersDarkMode: null,
   isDarkMode: null,
   setIsDarkMode: () => {},
   animationsClasses: '',
@@ -38,6 +40,7 @@ export const SettingsProvider = ({
   children,
 }: SettingsProviderProps): JSX.Element => {
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
+  const [prefersDarkMode, setPrefersDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (isDarkMode !== null) {
@@ -54,12 +57,14 @@ export const SettingsProvider = ({
       '(prefers-color-scheme: dark)'
     ).matches;
 
-    if (prefersDarkMode) {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
-    }
+    setPrefersDarkMode(prefersDarkMode);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    if (prefersDarkMode !== null) {
+      setIsDarkMode(prefersDarkMode);
+    }
+  }, [prefersDarkMode]);
 
   const [enableAnimations, setEnableAnimations] = useState<boolean>(false);
   const animationsClasses = useMemo(
@@ -115,6 +120,7 @@ export const SettingsProvider = ({
   return (
     <SettingsContext.Provider
       value={{
+        prefersDarkMode,
         isDarkMode,
         setIsDarkMode: handleSetIsDarkMode,
         animationsClasses,
