@@ -1,5 +1,5 @@
 import React from 'react';
-import DarkModeToggle from './IconButton';
+import DarkModeToggle from './DarkModeToggle';
 
 const Settings = (): JSX.Element => {
   return (

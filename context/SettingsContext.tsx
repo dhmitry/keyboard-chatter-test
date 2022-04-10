@@ -1,13 +1,23 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 interface SettingsState {
   isDarkMode: boolean | null;
   setIsDarkMode: (isDarkMode: boolean) => void;
+  animationsClasses: string;
+  setEnableAnimations: (enableAnimations: boolean) => void;
 }
 
 const defaultState: SettingsState = {
   isDarkMode: null,
   setIsDarkMode: () => {},
+  animationsClasses: '',
+  setEnableAnimations: () => {},
 };
 
 export const SettingsContext = React.createContext<SettingsState>(defaultState);
@@ -26,19 +36,34 @@ export const SettingsProvider = ({
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
+    if (isDarkMode === null) {
+      const prefersDarkMode = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
 
-    if (prefersDarkMode) {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
+      if (prefersDarkMode) {
+        setIsDarkMode(true);
+      } else {
+        setIsDarkMode(false);
+      }
     }
-  }, []);
+  }, [isDarkMode]);
+
+  const [enableAnimations, setEnableAnimations] = useState<boolean>(false);
+  const animationsClasses = useMemo(
+    () => (enableAnimations ? 'transition-colors duration-300' : ''),
+    [enableAnimations]
+  );
 
   return (
-    <SettingsContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+    <SettingsContext.Provider
+      value={{
+        isDarkMode,
+        setIsDarkMode,
+        animationsClasses,
+        setEnableAnimations,
+      }}
+    >
       {children}
     </SettingsContext.Provider>
   );

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { KeyInfo } from '../context/KeyboardContext';
+import { useSettings } from '../context/SettingsContext';
 
 interface KeyProps {
   keyText: string;
@@ -25,6 +26,8 @@ enum Status {
 }
 
 const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
+  const { animationsClasses } = useSettings();
+
   const widthStyles = {
     '1': 'w-12',
     '1.25': 'w-15',
@@ -66,7 +69,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
       } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
         info?.isDown
           ? 'bg-zinc-700 dark:bg-slate-300'
-          : 'bg-zinc-600 transition-colors duration-300 dark:bg-slate-200'
+          : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
       } leading-none ${statusStyles[status]}`}
     >
       {keyText}

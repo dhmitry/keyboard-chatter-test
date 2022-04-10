@@ -1,15 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import Key from '../components/Key';
 import Row from '../components/Row';
 import { KeyCode } from '../constants/keys';
 import { useKeyboard } from '../context/KeyboardContext';
+import { useSettings } from '../context/SettingsContext';
 
 const Keyboard = (): JSX.Element => {
   const { keys } = useKeyboard();
+  const { animationsClasses } = useSettings();
 
   return (
-    <div className="border-8 border-zinc-700 transition-colors duration-300 dark:border-slate-300">
-      <div className="border border-zinc-800 transition-colors duration-300 dark:border-slate-400">
+    <div
+      className={`border-8 border-zinc-700  dark:border-slate-300 ${animationsClasses}`}
+    >
+      <div
+        className={`border border-zinc-800  dark:border-slate-400 ${animationsClasses}`}
+      >
         <Row>
           <Key keyText="esc" info={keys[KeyCode.Escape]} />
           <Key keyText="1" info={keys[KeyCode.Digit1]} />
