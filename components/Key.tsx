@@ -70,7 +70,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
         info?.isDown
           ? 'bg-zinc-700 dark:bg-slate-300'
           : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
-      } leading-none ${statusStyles[status]}`}
+      } select-none leading-none ${statusStyles[status]}`}
     >
       {keyText}
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { useSettings } from '../context/SettingsContext';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import Tooltip from './Tooltip';
@@ -11,10 +11,17 @@ const DarkModeToggle = (): JSX.Element => {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleMouseDown = (event: MouseEvent) => {
+    if (event.detail > 1) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <Tooltip text={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
       <div
         onClick={handleClick}
+        onMouseDown={handleMouseDown}
         className="opacity-80 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100"
       >
         {isDarkMode ? (

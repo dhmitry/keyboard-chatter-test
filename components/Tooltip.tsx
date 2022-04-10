@@ -8,7 +8,7 @@ interface TooltipProps {
 
 const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
   const { getTooltipProps, setTooltipRef, setTriggerRef, visible } =
-    usePopperTooltip({ delayShow: 100, delayHide: 300, interactive: true });
+    usePopperTooltip({ delayShow: 100, delayHide: 100, interactive: true });
 
   return (
     <div>
