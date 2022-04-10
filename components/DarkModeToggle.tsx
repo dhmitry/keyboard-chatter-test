@@ -3,14 +3,10 @@ import { useSettings } from '../context/SettingsContext';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 const DarkModeToggle = (): JSX.Element => {
-  const { isDarkMode, setIsDarkMode, animationsClasses, setEnableAnimations } =
-    useSettings();
+  const { isDarkMode, setIsDarkMode, enableAnimations } = useSettings();
 
   const handleClick = () => {
-    if (animationsClasses === '') {
-      setEnableAnimations(true);
-    }
-
+    enableAnimations();
     setIsDarkMode(!isDarkMode);
   };
 

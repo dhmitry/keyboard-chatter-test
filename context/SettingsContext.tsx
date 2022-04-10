@@ -10,7 +10,7 @@ interface SettingsState {
   isDarkMode: boolean | null;
   setIsDarkMode: (isDarkMode: boolean) => void;
   animationsClasses: string;
-  setEnableAnimations: (enableAnimations: boolean) => void;
+  enableAnimations: () => void;
 }
 
 interface SavedSettings {
@@ -21,7 +21,7 @@ const defaultState: SettingsState = {
   isDarkMode: null,
   setIsDarkMode: () => {},
   animationsClasses: '',
-  setEnableAnimations: () => {},
+  enableAnimations: () => {},
 };
 
 export const SettingsContext = React.createContext<SettingsState>(defaultState);
@@ -66,6 +66,12 @@ export const SettingsProvider = ({
     () => (enableAnimations ? 'transition-colors duration-300' : ''),
     [enableAnimations]
   );
+
+  const handleEnableAnimations = () => {
+    if (!enableAnimations) {
+      setEnableAnimations(true);
+    }
+  };
 
   const settingsKey = 'settings';
 
@@ -112,7 +118,7 @@ export const SettingsProvider = ({
         isDarkMode,
         setIsDarkMode: handleSetIsDarkMode,
         animationsClasses,
-        setEnableAnimations,
+        enableAnimations: handleEnableAnimations,
       }}
     >
       {children}

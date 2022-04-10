@@ -1,4 +1,5 @@
 import React, { ReactNode, useContext, useRef, useState } from 'react';
+import { useSettings } from './SettingsContext';
 
 export interface KeyInfo {
   isDown: boolean;
@@ -32,6 +33,7 @@ export const KeyboardProvider = ({
   children,
 }: KeyboardProviderProps): JSX.Element => {
   const [keys, _setKeys] = useState<Keys>({});
+  const { enableAnimations } = useSettings();
 
   const keysRef = useRef(keys);
   const setKeys = (newKeys: Keys) => {
@@ -56,7 +58,9 @@ export const KeyboardProvider = ({
       isDown: true,
     };
 
+    enableAnimations();
     updateKey(event.code, newKeyInfo);
+
     event.preventDefault();
   };
 
