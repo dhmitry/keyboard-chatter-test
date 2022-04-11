@@ -22,7 +22,7 @@ const DarkModeToggle = (): JSX.Element => {
       <div
         onClick={handleClick}
         onMouseDown={handleMouseDown}
-        className="opacity-80 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100"
+        className="opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100"
       >
         {isDarkMode ? (
           <MdLightMode className="h-8 w-8 text-slate-100 " />
