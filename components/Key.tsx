@@ -53,7 +53,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
     if (info) {
       if (info.minElapsedMs === undefined) {
         status = Status.Pressed;
-      } else if (info.minElapsedMs && info.minElapsedMs < 80) {
+      } else if (info.minElapsedMs && info.minElapsedMs < 60) {
         status = Status.Broken;
       } else {
         status = Status.Healthy;

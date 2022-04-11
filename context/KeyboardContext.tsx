@@ -1,5 +1,6 @@
 import React, { ReactNode, useContext, useRef, useState } from 'react';
 import { useSettings } from './SettingsContext';
+import { Howl } from 'howler';
 
 export interface KeyInfo {
   isDown: boolean;
@@ -33,13 +34,20 @@ export const KeyboardProvider = ({
   children,
 }: KeyboardProviderProps): JSX.Element => {
   const [keys, _setKeys] = useState<Keys>({});
-  const { enableAnimations } = useSettings();
+  const { enableAnimations, isSoundEnabled } = useSettings();
 
   const keysRef = useRef(keys);
   const setKeys = (newKeys: Keys) => {
     keysRef.current = newKeys;
     _setKeys(newKeys);
   };
+
+  const [sounds] = useState<Howl[]>([
+    new Howl({ src: ['/sounds/key-1.wav'] }),
+    new Howl({ src: ['/sounds/key-2.wav'] }),
+    new Howl({ src: ['/sounds/key-3.wav'] }),
+    new Howl({ src: ['/sounds/key-4.wav'] }),
+  ]);
 
   const updateKey = (key: string, info: KeyInfo) => {
     const newKeys = {
@@ -59,6 +67,12 @@ export const KeyboardProvider = ({
     };
 
     enableAnimations();
+
+    if (isSoundEnabled && !prevKeyInfo?.isDown) {
+      const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+      randomSound.play();
+    }
+
     updateKey(event.code, newKeyInfo);
 
     event.preventDefault();
@@ -103,7 +117,7 @@ export const KeyboardProvider = ({
       document.removeEventListener('keyup', handleKeyUp);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isSoundEnabled]);
 
   return (
     <KeyboardContext.Provider value={{ keys }}>

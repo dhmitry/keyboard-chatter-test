@@ -9,13 +9,16 @@ import React, {
 interface SettingsState {
   prefersDarkMode: boolean | null;
   isDarkMode: boolean | null;
-  setIsDarkMode: (isDarkMode: boolean) => void;
+  setIsDarkMode: (newIsDarkMode: boolean) => void;
   animationsClasses: string;
   enableAnimations: () => void;
+  isSoundEnabled: boolean;
+  setIsSoundEnabled: (newIsSoundEnabled: boolean) => void;
 }
 
 interface SavedSettings {
-  isDarkMode: boolean;
+  isDarkMode: boolean | null;
+  isSoundEnabled: boolean;
 }
 
 const defaultState: SettingsState = {
@@ -24,6 +27,8 @@ const defaultState: SettingsState = {
   setIsDarkMode: () => {},
   animationsClasses: '',
   enableAnimations: () => {},
+  isSoundEnabled: true,
+  setIsSoundEnabled: () => {},
 };
 
 export const SettingsContext = React.createContext<SettingsState>(defaultState);
@@ -50,6 +55,7 @@ export const SettingsProvider = ({
     const savedSettings = load();
     if (savedSettings !== null) {
       setIsDarkMode(savedSettings.isDarkMode);
+      setIsSoundEnabled(savedSettings.isSoundEnabled);
       return;
     }
 
@@ -77,6 +83,8 @@ export const SettingsProvider = ({
       setEnableAnimations(true);
     }
   };
+
+  const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
 
   const settingsKey = 'settings';
 
@@ -107,11 +115,24 @@ export const SettingsProvider = ({
     localStorage.setItem(settingsKey, settingsJson);
   };
 
-  const handleSetIsDarkMode = (isDarkMode: boolean) => {
-    setIsDarkMode(isDarkMode);
+  const handleSetIsDarkMode = (newIsDarkMode: boolean) => {
+    setIsDarkMode(newIsDarkMode);
 
     const savedSettings: SavedSettings = {
+      isDarkMode: newIsDarkMode,
+      isSoundEnabled,
+    };
+
+    save(savedSettings);
+  };
+
+  const handleSetIsSoundEnabled = (newIsSoundEnabled: boolean) => {
+    setIsSoundEnabled(newIsSoundEnabled);
+
+    // TODO: come up with a better way so a new handler is not neede for each new setting
+    const savedSettings: SavedSettings = {
       isDarkMode,
+      isSoundEnabled: newIsSoundEnabled,
     };
 
     save(savedSettings);
@@ -125,6 +146,8 @@ export const SettingsProvider = ({
         setIsDarkMode: handleSetIsDarkMode,
         animationsClasses,
         enableAnimations: handleEnableAnimations,
+        isSoundEnabled,
+        setIsSoundEnabled: handleSetIsSoundEnabled,
       }}
     >
       {children}
