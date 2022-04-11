@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { KeyInfo } from '../context/KeyboardContext';
 import { useSettings } from '../context/SettingsContext';
+import Tooltip from './Tooltip';
 
 interface KeyProps {
   keyText: string;
@@ -19,10 +20,10 @@ export type KeyWidth =
   | '6.25';
 
 enum Status {
-  Blank,
-  Pressed,
-  Healthy,
-  Broken,
+  Blank = 'Blank',
+  Pressed = 'Pressed',
+  Healthy = 'Healthy',
+  Broken = 'Broken',
 }
 
 const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
@@ -52,7 +53,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
     if (info) {
       if (info.minElapsedMs === undefined) {
         status = Status.Pressed;
-      } else if (info.minElapsedMs && info.minElapsedMs < 60) {
+      } else if (info.minElapsedMs && info.minElapsedMs < 80) {
         status = Status.Broken;
       } else {
         status = Status.Healthy;
@@ -63,17 +64,28 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   }, [info]);
 
   return (
-    <div
-      className={`h-12 p-1 font-mono ${
-        widthStyles[keyWidth]
-      } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
-        info?.isDown
-          ? 'bg-zinc-700 dark:bg-slate-300'
-          : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
-      } select-none leading-none ${statusStyles[status]}`}
+    <Tooltip
+      text={
+        <div>
+          <p>{status}</p>
+          {info && info.minElapsedMs && (
+            <p>Min elapsed: {info.minElapsedMs}ms</p>
+          )}
+        </div>
+      }
     >
-      {keyText}
-    </div>
+      <div
+        className={`h-12 p-1 font-mono ${
+          widthStyles[keyWidth]
+        } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
+          info?.isDown
+            ? 'bg-zinc-700 dark:bg-slate-300'
+            : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
+        } select-none leading-none ${statusStyles[status]}`}
+      >
+        {keyText}
+      </div>
+    </Tooltip>
   );
 };
 

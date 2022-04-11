@@ -3,7 +3,7 @@ import { usePopperTooltip } from 'react-popper-tooltip';
 
 interface TooltipProps {
   children: ReactNode;
-  text: string;
+  text: ReactNode;
 }
 
 const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
