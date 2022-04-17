@@ -20,10 +20,10 @@ export type KeyWidth =
   | '6.25';
 
 enum Status {
-  Blank = 'Blank',
-  Pressed = 'Pressed',
-  Healthy = 'Healthy',
-  Broken = 'Broken',
+  Blank = 'blank',
+  Uncertain = 'uncertain',
+  Healthy = 'healthy',
+  Broken = 'broken',
 }
 
 const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
@@ -42,7 +42,7 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
 
   const statusStyles = {
     [Status.Blank]: 'dark:text-slate-600 text-zinc-400',
-    [Status.Pressed]: 'text-yellow-500',
+    [Status.Uncertain]: 'text-yellow-500',
     [Status.Healthy]: 'text-green-600',
     [Status.Broken]: 'text-red-600',
   };
@@ -51,10 +51,10 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
     let status = Status.Blank;
 
     if (info) {
-      if (info.minElapsedMs === undefined) {
-        status = Status.Pressed;
-      } else if (info.minElapsedMs && info.minElapsedMs < 60) {
+      if (info.chatterCount > 0) {
         status = Status.Broken;
+      } else if (info.pressCount < 100) {
+        status = Status.Uncertain;
       } else {
         status = Status.Healthy;
       }
@@ -66,12 +66,21 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
   return (
     <Tooltip
       text={
-        <div>
-          <p>{status}</p>
-          {info && info.minElapsedMs && (
-            <p>Min elapsed: {info.minElapsedMs}ms</p>
-          )}
-        </div>
+        keyText && (
+          <div>
+            <p>
+              &apos;{keyText}&apos; - {status}
+            </p>
+            {info && info.minElapsedMs && (
+              <div>
+                <p>
+                  {info.pressCount} presses ({info.chatterCount} due to chatter)
+                </p>
+                <p>Min elapsed: {info.minElapsedMs}ms</p>
+              </div>
+            )}
+          </div>
+        )
       }
     >
       <div

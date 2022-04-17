@@ -27,16 +27,14 @@ const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
   };
 
   const { getTooltipProps, setTooltipRef, setTriggerRef } = usePopperTooltip({
-    interactive: true,
     visible: isVisible,
     onVisibleChange: handleIsVisibleChange,
-    delayHide: 200,
   });
 
   return (
     <div>
       <div ref={setTriggerRef}>{children}</div>
-      {isVisible && (
+      {text && isVisible && (
         <div
           ref={setTooltipRef}
           {...getTooltipProps()}

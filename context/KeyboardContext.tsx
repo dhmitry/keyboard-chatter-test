@@ -4,6 +4,8 @@ import { Howl } from 'howler';
 
 export interface KeyInfo {
   isDown: boolean;
+  pressCount: number;
+  chatterCount: number;
   lastPress?: Date;
   minElapsedMs?: number;
 }
@@ -61,10 +63,19 @@ export const KeyboardProvider = ({
   const handleKeyDown = (event: KeyboardEvent) => {
     const prevKeyInfo = keysRef.current[event.code];
 
-    const newKeyInfo: KeyInfo = {
-      ...prevKeyInfo,
-      isDown: true,
-    };
+    let newKeyInfo: KeyInfo;
+    if (prevKeyInfo) {
+      newKeyInfo = {
+        ...prevKeyInfo,
+        isDown: true,
+      };
+    } else {
+      newKeyInfo = {
+        pressCount: 0,
+        chatterCount: 0,
+        isDown: true,
+      };
+    }
 
     enableAnimations();
 
@@ -87,9 +98,13 @@ export const KeyboardProvider = ({
     const currentTime = new Date();
     let elapsedMs;
     let minElapsedMs;
+    let isDueToChatter = false;
 
     if (prevKeyInfo.lastPress) {
       elapsedMs = currentTime.valueOf() - prevKeyInfo.lastPress.valueOf();
+
+      const chatterThreshold = 60;
+      isDueToChatter = elapsedMs < chatterThreshold;
 
       minElapsedMs = prevKeyInfo.minElapsedMs
         ? Math.min(prevKeyInfo.minElapsedMs, elapsedMs)
@@ -99,6 +114,8 @@ export const KeyboardProvider = ({
     const newKeyInfo: KeyInfo = {
       ...prevKeyInfo,
       isDown: false,
+      pressCount: prevKeyInfo.pressCount + 1,
+      chatterCount: prevKeyInfo.chatterCount + (isDueToChatter ? 1 : 0),
       lastPress: currentTime,
       minElapsedMs: minElapsedMs,
     };
