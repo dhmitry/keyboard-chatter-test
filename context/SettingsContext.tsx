@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import { useStorage } from '../hooks/useStorage';
 
 interface SettingsState {
   prefersDarkMode: boolean | null;
@@ -47,6 +48,8 @@ export const SettingsProvider = ({
   const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
   const [prefersDarkMode, setPrefersDarkMode] = useState<boolean | null>(null);
 
+  const [save, load] = useStorage<SavedSettings>('settings');
+
   useEffect(() => {
     if (isDarkMode !== null) {
       return;
@@ -64,7 +67,7 @@ export const SettingsProvider = ({
     ).matches;
 
     setPrefersDarkMode(prefersDarkMode);
-  }, [isDarkMode]);
+  }, [isDarkMode, load]);
 
   useEffect(() => {
     if (prefersDarkMode !== null) {
@@ -85,35 +88,6 @@ export const SettingsProvider = ({
   };
 
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
-
-  const settingsKey = 'settings';
-
-  const load = (): SavedSettings | null => {
-    const settingsJson = localStorage.getItem(settingsKey);
-
-    if (settingsJson === null) {
-      return null;
-    }
-
-    let savedSettings: SavedSettings | null = null;
-    try {
-      savedSettings = JSON.parse(settingsJson);
-    } catch {
-      // clear saved settings if JSON is invaliid
-      localStorage.removeItem(settingsKey);
-    }
-
-    return savedSettings;
-  };
-
-  const save = (savedSettings: SavedSettings) => {
-    if (isDarkMode === null) {
-      return;
-    }
-
-    const settingsJson = JSON.stringify(savedSettings);
-    localStorage.setItem(settingsKey, settingsJson);
-  };
 
   const handleSetIsDarkMode = (newIsDarkMode: boolean) => {
     setIsDarkMode(newIsDarkMode);
