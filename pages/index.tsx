@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 import React from 'react';
 import Keyboard from '../components/Keyboard';
-import Settings from '../components/Settings';
+import Menu from '../components/Menu';
 
 const Home: NextPage = () => {
   return (
     <>
-      <Settings />
+      <Menu />
       <Keyboard />
     </>
   );

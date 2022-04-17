@@ -16,10 +16,12 @@ export interface Keys {
 
 interface KeyboardState {
   keys: Keys;
+  resetKeys: () => void;
 }
 
 const defaultState: KeyboardState = {
   keys: {},
+  resetKeys: () => {},
 };
 
 export const KeyboardContext = React.createContext<KeyboardState>(defaultState);
@@ -38,18 +40,22 @@ export const KeyboardProvider = ({
   const [keys, _setKeys] = useState<Keys>({});
   const { enableAnimations, isSoundEnabled } = useSettings();
 
-  const keysRef = useRef(keys);
-  const setKeys = (newKeys: Keys) => {
-    keysRef.current = newKeys;
-    _setKeys(newKeys);
-  };
-
   const [sounds] = useState<Howl[]>([
     new Howl({ src: ['/sounds/key-1.wav'] }),
     new Howl({ src: ['/sounds/key-2.wav'] }),
     new Howl({ src: ['/sounds/key-3.wav'] }),
     new Howl({ src: ['/sounds/key-4.wav'] }),
   ]);
+
+  const keysRef = useRef(keys);
+  const setKeys = (newKeys: Keys) => {
+    keysRef.current = newKeys;
+    _setKeys(newKeys);
+  };
+
+  const resetKeys = () => {
+    setKeys({});
+  };
 
   const updateKey = (key: string, info: KeyInfo) => {
     const newKeys = {
@@ -137,7 +143,7 @@ export const KeyboardProvider = ({
   }, [isSoundEnabled]);
 
   return (
-    <KeyboardContext.Provider value={{ keys }}>
+    <KeyboardContext.Provider value={{ keys, resetKeys }}>
       {children}
     </KeyboardContext.Provider>
   );
