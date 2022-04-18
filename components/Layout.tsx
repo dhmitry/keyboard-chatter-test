@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
   const isLoading = useMemo(() => isDarkMode === null, [isDarkMode]);
 
   return (
-    <div className={isDarkMode ? 'dark' : ''}>
+    <main className={isDarkMode ? 'dark' : ''}>
       <Head>
         <title>Keyboard Chatter Test</title>
         {prefersDarkMode ? (
@@ -29,7 +29,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
           {children}
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

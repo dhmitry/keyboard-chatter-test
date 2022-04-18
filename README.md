@@ -26,12 +26,12 @@ The production version from the latest commit is built and deployed automaticall
 ## TODO
 
 List of things to do when bored:
-- [ ] Full ANSI layout
-- [x] ~~Light/dark mode toggle~~
+- [X] ~~Full ANSI layout~~
+- [X] ~~Light/dark mode toggle~~
 - [X] ~~Save settings to `localStorage`~~
-- [ ] Broken (red) key fade to Pressed (yellow)
 - [X] ~~Add [popper.js](https://popper.js.org/) for tooltips~~
 - [X] ~~Key press sounds~~
+- [ ] Use snackbar to show notifications
 - [ ] Generate sample text for typing
 
 ## License

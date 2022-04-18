@@ -1,23 +1,19 @@
 import React, { useMemo } from 'react';
-import { KeyInfo } from '../context/KeyboardContext';
-import { useSettings } from '../context/SettingsContext';
-import Tooltip from './Tooltip';
+import {
+  keyHeightStyles,
+  KeySize,
+  keyWidthStyles,
+} from '../../constants/key-styles';
+import { KeyInfo } from '../../context/KeyboardContext';
+import { useSettings } from '../../context/SettingsContext';
+import Tooltip from '../Tooltip';
 
 interface KeyProps {
-  keyText: string;
-  keyWidth?: KeyWidth;
+  keyText?: string;
+  width?: KeySize;
+  height?: KeySize;
   info?: KeyInfo;
 }
-
-export type KeyWidth =
-  | '1'
-  | '1.25'
-  | '1.5'
-  | '1.75'
-  | '2'
-  | '2.25'
-  | '2.75'
-  | '6.25';
 
 enum Status {
   Blank = 'blank',
@@ -26,19 +22,13 @@ enum Status {
   Broken = 'broken',
 }
 
-const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
+const Key = ({
+  keyText,
+  width = '1',
+  height = '1',
+  info,
+}: KeyProps): JSX.Element => {
   const { animationsClasses } = useSettings();
-
-  const widthStyles = {
-    '1': 'w-12',
-    '1.25': 'w-15',
-    '1.5': 'w-18',
-    '1.75': 'w-21',
-    '2': 'w-24',
-    '2.25': 'w-27',
-    '2.75': 'w-33',
-    '6.25': 'w-75',
-  };
 
   const statusStyles = {
     [Status.Blank]: 'dark:text-slate-600 text-zinc-400',
@@ -84,8 +74,8 @@ const Key = ({ keyText, keyWidth = '1', info }: KeyProps): JSX.Element => {
       }
     >
       <div
-        className={`h-12 p-1 font-mono ${
-          widthStyles[keyWidth]
+        className={`${keyHeightStyles[height]} p-1 font-mono ${
+          keyWidthStyles[width]
         } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
           info?.isDown
             ? 'bg-zinc-700 dark:bg-slate-300'

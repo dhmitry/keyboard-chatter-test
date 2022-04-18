@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import React from 'react';
-import Keyboard from '../components/Keyboard';
+import Keyboard from '../components/keyboard/Keyboard';
 import Menu from '../components/Menu';
 
 const Home: NextPage = () => {

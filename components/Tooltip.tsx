@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useMemo, useState } from 'react';
 import { usePopperTooltip } from 'react-popper-tooltip';
 
 interface TooltipProps {
@@ -39,7 +39,7 @@ const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
         <div
           ref={setTooltipRef}
           {...getTooltipProps()}
-          className={` rounded bg-zinc-900 px-2 py-1 text-slate-100 ${opacity} transition-opacity duration-300 ease-in-out dark:bg-slate-600`}
+          className={`rounded bg-zinc-900 px-2 py-1 text-slate-100 ${opacity} transition-opacity duration-300 ease-in-out dark:bg-slate-600`}
         >
           {text}
         </div>

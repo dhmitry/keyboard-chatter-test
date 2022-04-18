@@ -10,16 +10,19 @@ import { useStorage } from '../hooks/useStorage';
 interface SettingsState {
   prefersDarkMode: boolean | null;
   isDarkMode: boolean | null;
-  setIsDarkMode: (newIsDarkMode: boolean) => void;
+  setIsDarkMode: (isDarkMode: boolean) => void;
   animationsClasses: string;
   enableAnimations: () => void;
   isSoundEnabled: boolean;
-  setIsSoundEnabled: (newIsSoundEnabled: boolean) => void;
+  setIsSoundEnabled: (isSoundEnabled: boolean) => void;
+  useFullLayout: boolean;
+  setUseFullLayout: (useFullLayout: boolean) => void;
 }
 
 interface SavedSettings {
-  isDarkMode: boolean | null;
+  isDarkMode: boolean;
   isSoundEnabled: boolean;
+  useFullLayout: boolean;
 }
 
 const defaultState: SettingsState = {
@@ -30,6 +33,8 @@ const defaultState: SettingsState = {
   enableAnimations: () => {},
   isSoundEnabled: true,
   setIsSoundEnabled: () => {},
+  useFullLayout: true,
+  setUseFullLayout: () => {},
 };
 
 export const SettingsContext = React.createContext<SettingsState>(defaultState);
@@ -59,6 +64,8 @@ export const SettingsProvider = ({
     if (savedSettings !== null) {
       setIsDarkMode(savedSettings.isDarkMode);
       setIsSoundEnabled(savedSettings.isSoundEnabled);
+      setUseFullLayout(savedSettings.useFullLayout);
+
       return;
     }
 
@@ -88,40 +95,32 @@ export const SettingsProvider = ({
   };
 
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
+  const [useFullLayout, setUseFullLayout] = useState(true);
 
-  const handleSetIsDarkMode = (newIsDarkMode: boolean) => {
-    setIsDarkMode(newIsDarkMode);
+  useEffect(() => {
+    if (isDarkMode !== null) {
+      const savedSettings: SavedSettings = {
+        isDarkMode,
+        isSoundEnabled,
+        useFullLayout,
+      };
 
-    const savedSettings: SavedSettings = {
-      isDarkMode: newIsDarkMode,
-      isSoundEnabled,
-    };
-
-    save(savedSettings);
-  };
-
-  const handleSetIsSoundEnabled = (newIsSoundEnabled: boolean) => {
-    setIsSoundEnabled(newIsSoundEnabled);
-
-    // TODO: come up with a better way so a new handler is not neede for each new setting
-    const savedSettings: SavedSettings = {
-      isDarkMode,
-      isSoundEnabled: newIsSoundEnabled,
-    };
-
-    save(savedSettings);
-  };
+      save(savedSettings);
+    }
+  }, [isDarkMode, isSoundEnabled, save, useFullLayout]);
 
   return (
     <SettingsContext.Provider
       value={{
         prefersDarkMode,
         isDarkMode,
-        setIsDarkMode: handleSetIsDarkMode,
+        setIsDarkMode,
         animationsClasses,
         enableAnimations: handleEnableAnimations,
         isSoundEnabled,
-        setIsSoundEnabled: handleSetIsSoundEnabled,
+        setIsSoundEnabled,
+        useFullLayout,
+        setUseFullLayout,
       }}
     >
       {children}

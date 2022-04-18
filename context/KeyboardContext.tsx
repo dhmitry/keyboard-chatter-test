@@ -41,11 +41,7 @@ export const KeyboardProvider = ({
   const [keys, _setKeys] = useState<Keys>({});
   const { enableAnimations, isSoundEnabled } = useSettings();
 
-  const [sounds] = useState<Howl[]>([
-    new Howl({ src: ['/sounds/key-1.wav'] }),
-    new Howl({ src: ['/sounds/key-2.wav'] }),
-    new Howl({ src: ['/sounds/key-3.wav'] }),
-  ]);
+  const [sounds, setSounds] = useState<Howl[]>([]);
 
   const [save, load] = useStorage<Keys>('keys');
 
@@ -87,13 +83,26 @@ export const KeyboardProvider = ({
     }
 
     enableAnimations();
+    updateKey(event.code, newKeyInfo);
 
     if (isSoundEnabled && !prevKeyInfo?.isDown) {
-      const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+      let soundsToUse;
+      if (sounds.length === 0) {
+        soundsToUse = [
+          new Howl({ src: ['/sounds/key-1.wav'] }),
+          new Howl({ src: ['/sounds/key-2.wav'] }),
+          new Howl({ src: ['/sounds/key-3.wav'] }),
+        ];
+
+        setSounds(soundsToUse);
+      } else {
+        soundsToUse = sounds;
+      }
+
+      const randomSound =
+        soundsToUse[Math.floor(Math.random() * soundsToUse.length)];
       randomSound.play();
     }
-
-    updateKey(event.code, newKeyInfo);
 
     event.preventDefault();
   };

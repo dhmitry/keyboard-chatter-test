@@ -1,8 +1,7 @@
 import React from 'react';
 import { MdRefresh } from 'react-icons/md';
-import Tooltip from './Tooltip';
-import IconButton from './IconButton';
 import { useKeyboard } from '../context/KeyboardContext';
+import MenuButton from './MenuButton';
 
 const ResetKeysButton = (): JSX.Element => {
   const { resetKeys } = useKeyboard();
@@ -12,11 +11,9 @@ const ResetKeysButton = (): JSX.Element => {
   };
 
   return (
-    <Tooltip text="Reset keys">
-      <IconButton onClick={handleClick}>
-        <MdRefresh className="h-8 w-8" />
-      </IconButton>
-    </Tooltip>
+    <MenuButton tooltipText="Reset keys" onClick={handleClick}>
+      <MdRefresh className="h-8 w-8" />
+    </MenuButton>
   );
 };
 
