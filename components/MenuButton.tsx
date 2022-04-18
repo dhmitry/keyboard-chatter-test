@@ -6,12 +6,14 @@ import Tooltip from './Tooltip';
 
 interface MenuButtonProps {
   tooltipText: string;
+  hideTooltipOnClick?: boolean;
   children: ReactElement<IconType>;
   onClick: () => void;
 }
 
 const MenuButton = ({
   tooltipText,
+  hideTooltipOnClick,
   children,
   onClick,
 }: MenuButtonProps): JSX.Element => {
@@ -23,7 +25,7 @@ const MenuButton = ({
   };
 
   return (
-    <Tooltip text={tooltipText}>
+    <Tooltip text={tooltipText} hideOnClick={hideTooltipOnClick}>
       <IconButton onClick={handleClick}>{children}</IconButton>
     </Tooltip>
   );

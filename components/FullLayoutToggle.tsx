@@ -10,9 +10,11 @@ const FullLayoutToggle = (): JSX.Element => {
     setUseFullLayout(!useFullLayout);
   };
 
+  // TODO: fix tooltip bug when switching
   return (
     <MenuButton
       tooltipText={`Show ${useFullLayout ? '60%' : 'full'} layout`}
+      hideTooltipOnClick={true}
       onClick={handleClick}
     >
       {useFullLayout ? (

@@ -4,9 +4,14 @@ import { usePopperTooltip } from 'react-popper-tooltip';
 interface TooltipProps {
   children: ReactNode;
   text: ReactNode;
+  hideOnClick?: boolean;
 }
 
-const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
+const Tooltip = ({
+  children,
+  text,
+  hideOnClick,
+}: TooltipProps): JSX.Element => {
   // TODO: come up with a better variable name
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -32,9 +37,17 @@ const Tooltip = ({ children, text }: TooltipProps): JSX.Element => {
     offset: [0, 12],
   });
 
+  const handleClick = () => {
+    if (hideOnClick) {
+      handleIsVisibleChange(false);
+    }
+  };
+
   return (
     <div>
-      <div ref={setTriggerRef}>{children}</div>
+      <div ref={setTriggerRef} onClick={handleClick}>
+        {children}
+      </div>
       {text && isVisible && (
         <div
           ref={setTooltipRef}
