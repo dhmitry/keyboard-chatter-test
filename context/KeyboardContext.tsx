@@ -140,9 +140,10 @@ export const KeyboardProvider = ({
       const chatterThreshold = 60;
       isDueToChatter = elapsedMs < chatterThreshold;
 
-      minElapsedMs = prevKeyInfo.minElapsedMs
-        ? Math.min(prevKeyInfo.minElapsedMs, elapsedMs)
-        : elapsedMs;
+      minElapsedMs =
+        prevKeyInfo.minElapsedMs === undefined
+          ? elapsedMs
+          : Math.min(prevKeyInfo.minElapsedMs, elapsedMs);
     }
 
     const newKeyInfo: KeyInfo = {
