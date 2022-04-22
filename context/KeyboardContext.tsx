@@ -7,7 +7,7 @@ export interface KeyInfo {
   isDown: boolean;
   pressCount: number;
   chatterCount: number;
-  lastPress?: Date;
+  lastPress?: number;
   minElapsedMs?: number;
 }
 
@@ -129,13 +129,13 @@ export const KeyboardProvider = ({
       return;
     }
 
-    const currentTime = new Date();
+    const currentTime = new Date().valueOf();
     let elapsedMs;
     let minElapsedMs;
     let isDueToChatter = false;
 
-    if (prevKeyInfo.lastPress) {
-      elapsedMs = currentTime.valueOf() - prevKeyInfo.lastPress.valueOf();
+    if (prevKeyInfo.lastPress !== undefined) {
+      elapsedMs = currentTime - prevKeyInfo.lastPress;
 
       const chatterThreshold = 60;
       isDueToChatter = elapsedMs < chatterThreshold;
