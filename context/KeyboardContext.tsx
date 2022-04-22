@@ -17,12 +17,14 @@ export interface Keys {
 
 interface KeyboardState {
   keys: Keys;
-  resetKeys: () => void;
+  resetAllKeys: () => void;
+  resetBrokenKeys: () => void;
 }
 
 const defaultState: KeyboardState = {
   keys: {},
-  resetKeys: () => {},
+  resetAllKeys: () => {},
+  resetBrokenKeys: () => {},
 };
 
 export const KeyboardContext = React.createContext<KeyboardState>(defaultState);
@@ -52,8 +54,22 @@ export const KeyboardProvider = ({
     save(newKeys);
   };
 
-  const resetKeys = () => {
+  const resetAllKeys = () => {
     setKeys({});
+  };
+
+  const resetBrokenKeys = () => {
+    const currentKeys = keysRef.current;
+
+    const newKeys: Keys = {};
+    Object.keys(currentKeys).forEach((key) => {
+      const currentKey = currentKeys[key];
+      if (!currentKey || currentKey.chatterCount === 0) {
+        newKeys[key] = currentKey;
+      }
+    });
+
+    setKeys(newKeys);
   };
 
   const updateKey = (key: string, info: KeyInfo) => {
@@ -160,7 +176,7 @@ export const KeyboardProvider = ({
   }, [isSoundEnabled]);
 
   return (
-    <KeyboardContext.Provider value={{ keys, resetKeys }}>
+    <KeyboardContext.Provider value={{ keys, resetAllKeys, resetBrokenKeys }}>
       {children}
     </KeyboardContext.Provider>
   );
