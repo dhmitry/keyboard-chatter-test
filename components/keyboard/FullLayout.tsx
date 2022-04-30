@@ -239,4 +239,4 @@ const FullLayout = (): JSX.Element => {
   );
 };
 
-export default FullLayout;
+export default React.memo(FullLayout);

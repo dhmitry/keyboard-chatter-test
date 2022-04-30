@@ -2,6 +2,7 @@ import React, { ReactNode, useContext, useRef, useState } from 'react';
 import { useSettings } from './SettingsContext';
 import { Howl } from 'howler';
 import { useStorage } from '../hooks/useStorage';
+import { KeyboardKeys } from '../constants/KeyboardKeys';
 
 export interface KeyInfo {
   isDown: boolean;
@@ -19,12 +20,16 @@ interface KeyboardState {
   keys: Keys;
   resetAllKeys: () => void;
   resetBrokenKeys: () => void;
+  input: string;
+  clearInput: () => void;
 }
 
 const defaultState: KeyboardState = {
   keys: {},
   resetAllKeys: () => {},
   resetBrokenKeys: () => {},
+  input: '',
+  clearInput: () => {},
 };
 
 export const KeyboardContext = React.createContext<KeyboardState>(defaultState);
@@ -41,18 +46,29 @@ export const KeyboardProvider = ({
   children,
 }: KeyboardProviderProps): JSX.Element => {
   const [keys, _setKeys] = useState<Keys>({});
-  const { enableAnimations, isSoundEnabled } = useSettings();
-
-  const [sounds, setSounds] = useState<Howl[]>([]);
-
-  const [save, load] = useStorage<Keys>('keys');
-
   const keysRef = useRef(keys);
   const setKeys = (newKeys: Keys) => {
     keysRef.current = newKeys;
     _setKeys(newKeys);
     save(newKeys);
   };
+
+  const [input, _setInput] = useState('');
+  const inputRef = useRef(input);
+  const setInput = (newInput: string) => {
+    inputRef.current = newInput;
+    _setInput(newInput);
+  };
+
+  const clearInput = () => {
+    setInput('');
+  };
+
+  const { enableAnimations, isSoundEnabled } = useSettings();
+
+  const [sounds, setSounds] = useState<Howl[]>([]);
+
+  const [save, load] = useStorage<Keys>('keys');
 
   const resetAllKeys = () => {
     setKeys({});
@@ -120,6 +136,12 @@ export const KeyboardProvider = ({
       randomSound.play();
     }
 
+    if (event.key === KeyboardKeys['Backspace'].code) {
+      setInput(inputRef.current.substring(0, inputRef.current.length - 1));
+    } else if (event.key.length === 1) {
+      setInput(inputRef.current + event.key);
+    }
+
     event.preventDefault();
   };
 
@@ -177,7 +199,9 @@ export const KeyboardProvider = ({
   }, [isSoundEnabled]);
 
   return (
-    <KeyboardContext.Provider value={{ keys, resetAllKeys, resetBrokenKeys }}>
+    <KeyboardContext.Provider
+      value={{ keys, resetAllKeys, resetBrokenKeys, input, clearInput }}
+    >
       {children}
     </KeyboardContext.Provider>
   );

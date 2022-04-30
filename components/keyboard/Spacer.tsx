@@ -23,4 +23,4 @@ const Spacer = ({ height, width }: SpacerProps): JSX.Element => {
   return <div className={`${widthStyle} ${heightStyle}`} />;
 };
 
-export default Spacer;
+export default React.memo(Spacer);

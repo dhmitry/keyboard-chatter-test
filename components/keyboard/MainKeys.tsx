@@ -215,4 +215,4 @@ const MainKeys = ({ showEscape }: MainKeysProps): JSX.Element => {
   );
 };
 
-export default MainKeys;
+export default React.memo(MainKeys);

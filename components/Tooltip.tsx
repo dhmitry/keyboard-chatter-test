@@ -61,4 +61,4 @@ const Tooltip = ({
   );
 };
 
-export default Tooltip;
+export default React.memo(Tooltip);

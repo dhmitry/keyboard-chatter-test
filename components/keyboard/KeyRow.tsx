@@ -8,4 +8,4 @@ const KeyRow = ({ children }: RowProps): JSX.Element => (
   <div className="flex flex-row">{children}</div>
 );
 
-export default KeyRow;
+export default React.memo(KeyRow);
