@@ -44,7 +44,7 @@ const Tooltip = ({
   };
 
   return (
-    <div>
+    <>
       <div ref={setTriggerRef} onClick={handleClick}>
         {children}
       </div>
@@ -57,7 +57,7 @@ const Tooltip = ({
           {text}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

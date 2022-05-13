@@ -12,7 +12,7 @@ const MainKeys = ({ showEscape }: MainKeysProps): JSX.Element => {
   const { keys } = useKeyboard();
 
   return (
-    <div>
+    <>
       <KeyRow>
         {showEscape ? (
           <Key
@@ -211,7 +211,7 @@ const MainKeys = ({ showEscape }: MainKeysProps): JSX.Element => {
           info={keys[KeyboardKeys.ControlRight.code]}
         />{' '}
       </KeyRow>
-    </div>
+    </>
   );
 };
 

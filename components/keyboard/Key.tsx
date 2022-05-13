@@ -57,19 +57,19 @@ const Key = ({
     <Tooltip
       text={
         keyText && (
-          <div>
+          <>
             <p>
               &apos;{keyText}&apos; - {status}
             </p>
             {info && info.minElapsedMs && (
-              <div>
+              <>
                 <p>
                   {info.pressCount} presses ({info.chatterCount} due to chatter)
                 </p>
                 <p>Min elapsed: {info.minElapsedMs}ms</p>
-              </div>
+              </>
             )}
-          </div>
+          </>
         )
       }
     >
