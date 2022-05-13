@@ -31,8 +31,8 @@ List of things to do when bored:
 - [X] ~~Save settings to `localStorage`~~
 - [X] ~~Add [popper.js](https://popper.js.org/) for tooltips~~
 - [X] ~~Key press sounds~~
-- [ ] Use snackbar to show notifications
-- [X] Generate sample text for typing
+- [X] ~~Generate sample text for typing~~
+- [ ] Use Redux to manage state
 
 ## License
 
