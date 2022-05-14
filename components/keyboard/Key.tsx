@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { keyHeightStyles, keyWidthStyles } from '../../constants/KeyboardKeys';
-import { KeyboardKey } from '../../constants/KeyboardKeys';
-import { useKeyboard } from '../../context/KeyboardContext';
+import { keyHeightStyles, keyWidthStyles } from '../../constants/keyboard';
+import { KeyboardKey } from '../../constants/keyboard';
+import { useAppSelector } from '../../state/hooks';
+import { selectKey } from '../../state/keyboardSlice';
 import Tooltip from '../Tooltip';
 
 interface KeyProps {
-  keyboardKey?: KeyboardKey;
+  keyboardKey: KeyboardKey;
 }
 
 enum Status {
@@ -16,7 +17,7 @@ enum Status {
 }
 
 const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
-  const { keys } = useKeyboard();
+  const keyInfo = useAppSelector((state) => selectKey(state, keyboardKey.code));
 
   const statusStyles = {
     [Status.Blank]: 'dark:text-slate-600 text-zinc-400',
@@ -31,18 +32,13 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
     [keyboardKey?.height]
   );
 
-  const info = useMemo(
-    () => (keyboardKey ? keys[keyboardKey.code] : null),
-    [keyboardKey, keys]
-  );
-
   const status = useMemo(() => {
     let status = Status.Blank;
 
-    if (info) {
-      if (info.chatterCount > 0) {
+    if (keyInfo) {
+      if (keyInfo.chatterCount > 0) {
         status = Status.Broken;
-      } else if (info.pressCount < 100) {
+      } else if (keyInfo.pressCount < 100) {
         status = Status.Uncertain;
       } else {
         status = Status.Healthy;
@@ -50,7 +46,7 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
     }
 
     return status;
-  }, [info]);
+  }, [keyInfo]);
 
   return (
     <Tooltip
@@ -60,12 +56,13 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
             <p>
               &apos;{keyboardKey.text}&apos; - {status}
             </p>
-            {info && info.minElapsedMs && (
+            {keyInfo && keyInfo.minElapsedMs && (
               <>
                 <p>
-                  {info.pressCount} presses ({info.chatterCount} due to chatter)
+                  {keyInfo.pressCount} presses ({keyInfo.chatterCount} due to
+                  chatter)
                 </p>
-                <p>Min elapsed: {info.minElapsedMs}ms</p>
+                <p>Min elapsed: {keyInfo.minElapsedMs}ms</p>
               </>
             )}
           </>
@@ -76,7 +73,7 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
         className={`${keyHeightStyles[height]} p-1 font-mono ${
           keyWidthStyles[width]
         } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
-          info?.isDown
+          keyInfo?.isDown
             ? 'bg-zinc-700 dark:bg-slate-300'
             : 'bg-zinc-600 transition-colors duration-300 dark:bg-slate-200'
         } select-none leading-none ${statusStyles[status]}`}

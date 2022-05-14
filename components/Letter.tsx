@@ -1,16 +1,27 @@
 import React, { useMemo } from 'react';
+import { useAppSelector } from '../state/hooks';
+import {
+  selectInputCharAt,
+  selectIsLetterCurrent,
+} from '../state/keyboardSlice';
 
 interface LetterProps {
   expectedLetter: string;
-  actualLetter: string;
-  isCurrent: boolean;
+  actualLetterIndex: number;
 }
 
 const Letter = ({
   expectedLetter,
-  actualLetter,
-  isCurrent,
+  actualLetterIndex,
 }: LetterProps): JSX.Element => {
+  const isCurrent = useAppSelector((state) =>
+    selectIsLetterCurrent(state, actualLetterIndex)
+  );
+
+  const actualLetter = useAppSelector((state) =>
+    selectInputCharAt(state, actualLetterIndex)
+  );
+
   const isCorrect = useMemo(
     () => actualLetter === expectedLetter,
     [actualLetter, expectedLetter]

@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardKeys } from '../../constants/KeyboardKeys';
+import { KeyboardKeys } from '../../constants/keyboard';
 import Key from './Key';
 import KeyRow from './KeyRow';
 import MainKeys from './MainKeys';

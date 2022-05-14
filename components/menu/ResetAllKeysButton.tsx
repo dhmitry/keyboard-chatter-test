@@ -1,13 +1,14 @@
 import React from 'react';
 import { MdReplay } from 'react-icons/md';
-import { useKeyboard } from '../../context/KeyboardContext';
+import { useAppDispatch } from '../../state/hooks';
+import { resetAllKeys } from '../../state/keyboardSlice';
 import MenuButton from './MenuButton';
 
 const ResetAllKeysButton = (): JSX.Element => {
-  const { resetAllKeys } = useKeyboard();
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    resetAllKeys();
+    dispatch(resetAllKeys());
   };
 
   return (

@@ -3,7 +3,7 @@ import {
   keyHeightStyles,
   KeySize,
   keyWidthStyles,
-} from '../../constants/KeyboardKeys';
+} from '../../constants/keyboard';
 
 interface SpacerProps {
   height?: KeySize;

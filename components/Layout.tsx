@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useKeyboardListener } from '../hooks/useKeyboardListener';
 import { useAppSelector } from '../state/hooks';
 import { selectIsDarkMode } from '../state/settingsSlice';
 
@@ -8,6 +9,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
+  useKeyboardListener();
+
   const isDarkMode = useAppSelector(selectIsDarkMode);
   const [isSystemDarkMode, setIsSystemDarkMode] = useState(true);
 

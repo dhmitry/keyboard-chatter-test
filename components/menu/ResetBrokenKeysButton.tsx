@@ -1,13 +1,14 @@
 import React from 'react';
 import { MdPublishedWithChanges } from 'react-icons/md';
-import { useKeyboard } from '../../context/KeyboardContext';
+import { useAppDispatch } from '../../state/hooks';
+import { resetBrokenKeys } from '../../state/keyboardSlice';
 import MenuButton from './MenuButton';
 
 const ResetBrokenKeysButton = (): JSX.Element => {
-  const { resetBrokenKeys } = useKeyboard();
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    resetBrokenKeys();
+    dispatch(resetBrokenKeys());
   };
 
   return (
