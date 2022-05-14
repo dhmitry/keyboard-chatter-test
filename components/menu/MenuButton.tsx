@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
-import IconButton from './IconButton';
+import IconButton from '../IconButton';
 import { IconType } from 'react-icons';
-import { useSettings } from '../context/SettingsContext';
-import Tooltip from './Tooltip';
+import { useSettings } from '../../context/SettingsContext';
+import Tooltip from '../Tooltip';
 
 interface MenuButtonProps {
   tooltipText: string;

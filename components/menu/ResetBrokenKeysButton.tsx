@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdPublishedWithChanges } from 'react-icons/md';
-import { useKeyboard } from '../context/KeyboardContext';
+import { useKeyboard } from '../../context/KeyboardContext';
 import MenuButton from './MenuButton';
 
 const ResetBrokenKeysButton = (): JSX.Element => {

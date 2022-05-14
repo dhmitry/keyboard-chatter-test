@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../../context/SettingsContext';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import MenuButton from './MenuButton';
 

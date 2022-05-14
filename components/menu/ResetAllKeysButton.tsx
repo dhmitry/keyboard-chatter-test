@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdReplay } from 'react-icons/md';
-import { useKeyboard } from '../context/KeyboardContext';
+import { useKeyboard } from '../../context/KeyboardContext';
 import MenuButton from './MenuButton';
 
 const ResetAllKeysButton = (): JSX.Element => {
