@@ -3,7 +3,7 @@ import {
   keyHeightStyles,
   KeySize,
   keyWidthStyles,
-} from '../../constants/key-styles';
+} from '../../constants/KeyboardKeys';
 
 interface SpacerProps {
   height?: KeySize;
@@ -23,4 +23,4 @@ const Spacer = ({ height, width }: SpacerProps): JSX.Element => {
   return <div className={`${widthStyle} ${heightStyle}`} />;
 };
 
-export default React.memo(Spacer);
+export default Spacer;

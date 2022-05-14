@@ -15,4 +15,4 @@ const Keyboard = (): JSX.Element => {
   );
 };
 
-export default React.memo(Keyboard);
+export default Keyboard;

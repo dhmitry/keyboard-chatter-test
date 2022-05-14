@@ -1,18 +1,12 @@
 import React, { useMemo } from 'react';
-import {
-  keyHeightStyles,
-  KeySize,
-  keyWidthStyles,
-} from '../../constants/key-styles';
-import { KeyInfo } from '../../context/KeyboardContext';
+import { keyHeightStyles, keyWidthStyles } from '../../constants/KeyboardKeys';
+import { KeyboardKey } from '../../constants/KeyboardKeys';
+import { useKeyboard } from '../../context/KeyboardContext';
 import { useSettings } from '../../context/SettingsContext';
 import Tooltip from '../Tooltip';
 
 interface KeyProps {
-  keyText?: string;
-  width?: KeySize;
-  height?: KeySize;
-  info?: KeyInfo;
+  keyboardKey?: KeyboardKey;
 }
 
 enum Status {
@@ -22,13 +16,9 @@ enum Status {
   Broken = 'broken',
 }
 
-const Key = ({
-  keyText,
-  width = '1',
-  height = '1',
-  info,
-}: KeyProps): JSX.Element => {
+const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
   const { animationsClasses } = useSettings();
+  const { keys } = useKeyboard();
 
   const statusStyles = {
     [Status.Blank]: 'dark:text-slate-600 text-zinc-400',
@@ -36,6 +26,17 @@ const Key = ({
     [Status.Healthy]: 'text-green-600',
     [Status.Broken]: 'text-red-600',
   };
+
+  const width = useMemo(() => keyboardKey?.width ?? '1', [keyboardKey?.width]);
+  const height = useMemo(
+    () => keyboardKey?.height ?? '1',
+    [keyboardKey?.height]
+  );
+
+  const info = useMemo(
+    () => (keyboardKey ? keys[keyboardKey.code] : null),
+    [keyboardKey, keys]
+  );
 
   const status = useMemo(() => {
     let status = Status.Blank;
@@ -56,10 +57,10 @@ const Key = ({
   return (
     <Tooltip
       text={
-        keyText && (
+        keyboardKey?.text && (
           <>
             <p>
-              &apos;{keyText}&apos; - {status}
+              &apos;{keyboardKey.text}&apos; - {status}
             </p>
             {info && info.minElapsedMs && (
               <>
@@ -82,10 +83,10 @@ const Key = ({
             : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
         } select-none leading-none ${statusStyles[status]}`}
       >
-        {keyText}
+        {keyboardKey?.text}
       </div>
     </Tooltip>
   );
 };
 
-export default React.memo(Key);
+export default Key;

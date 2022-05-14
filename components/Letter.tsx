@@ -39,4 +39,4 @@ const Letter = ({
   );
 };
 
-export default React.memo(Letter);
+export default Letter;

@@ -30,4 +30,4 @@ const Text = (): JSX.Element => {
   );
 };
 
-export default React.memo(Text);
+export default Text;
