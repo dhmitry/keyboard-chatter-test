@@ -1,10 +1,7 @@
 import Head from 'next/head';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useAppSelector } from '../state/hooks';
-import {
-  selectIsDarkMode,
-  selectIsSystemDarkMode,
-} from '../state/settingsSlice';
+import { selectIsDarkMode } from '../state/settingsSlice';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,13 +9,19 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   const isDarkMode = useAppSelector(selectIsDarkMode);
-  const isSystemDarkMode = useAppSelector(selectIsSystemDarkMode);
+  const [isSystemDarkMode, setIsSystemDarkMode] = useState(true);
+
+  useEffect(() => {
+    const prefersDarkMode = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    setIsSystemDarkMode(prefersDarkMode);
+  }, []);
 
   return (
     <main className={isDarkMode ? 'dark' : ''}>
       <Head>
         <title>Keyboard Chatter Test</title>
-        {/* TODO: FIX THIS */}
         {isSystemDarkMode ? (
           <link rel="icon" href="/favicon_light.ico" />
         ) : (
