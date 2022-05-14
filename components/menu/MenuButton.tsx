@@ -1,32 +1,28 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import IconButton from '../IconButton';
 import { IconType } from 'react-icons';
-import { useSettings } from '../../context/SettingsContext';
 import Tooltip from '../Tooltip';
 
 interface MenuButtonProps {
   tooltipText: string;
   hideTooltipOnClick?: boolean;
-  children: ReactElement<IconType>;
+  icon: IconType;
   onClick: () => void;
 }
 
 const MenuButton = ({
   tooltipText,
   hideTooltipOnClick,
-  children,
+  icon,
   onClick,
 }: MenuButtonProps): JSX.Element => {
-  const { enableAnimations } = useSettings();
-
-  const handleClick = () => {
-    enableAnimations();
-    onClick();
-  };
+  const Icon = icon;
 
   return (
     <Tooltip text={tooltipText} hideOnClick={hideTooltipOnClick}>
-      <IconButton onClick={handleClick}>{children}</IconButton>
+      <IconButton onClick={onClick}>
+        <Icon className="h-8 w-8" />
+      </IconButton>
     </Tooltip>
   );
 };

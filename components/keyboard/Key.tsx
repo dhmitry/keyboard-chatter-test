@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { keyHeightStyles, keyWidthStyles } from '../../constants/KeyboardKeys';
 import { KeyboardKey } from '../../constants/KeyboardKeys';
 import { useKeyboard } from '../../context/KeyboardContext';
-import { useSettings } from '../../context/SettingsContext';
 import Tooltip from '../Tooltip';
 
 interface KeyProps {
@@ -17,7 +16,6 @@ enum Status {
 }
 
 const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
-  const { animationsClasses } = useSettings();
   const { keys } = useKeyboard();
 
   const statusStyles = {
@@ -80,7 +78,7 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
         } border-2 border-solid border-zinc-800 dark:border-slate-400 ${
           info?.isDown
             ? 'bg-zinc-700 dark:bg-slate-300'
-            : `bg-zinc-600 dark:bg-slate-200 ${animationsClasses}`
+            : 'bg-zinc-600 transition-colors duration-300 dark:bg-slate-200'
         } select-none leading-none ${statusStyles[status]}`}
       >
         {keyboardKey?.text}

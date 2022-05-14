@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext, useRef, useState } from 'react';
-import { useSettings } from './SettingsContext';
 import { Howl } from 'howler';
-import { useStorage } from '../hooks/useStorage';
 import { KeyboardKeys } from '../constants/KeyboardKeys';
+import { useAppSelector } from '../state/hooks';
+import { selectIsSoundEnabled } from '../state/settingsSlice';
 
 export interface KeyInfo {
   isDown: boolean;
@@ -50,7 +50,6 @@ export const KeyboardProvider = ({
   const setKeys = (newKeys: Keys) => {
     keysRef.current = newKeys;
     _setKeys(newKeys);
-    save(newKeys);
   };
 
   const [input, _setInput] = useState('');
@@ -64,11 +63,9 @@ export const KeyboardProvider = ({
     setInput('');
   };
 
-  const { enableAnimations, isSoundEnabled } = useSettings();
+  const isSoundEnabled = useAppSelector(selectIsSoundEnabled);
 
   const [sounds, setSounds] = useState<Howl[]>([]);
-
-  const [save, load] = useStorage<Keys>('keys');
 
   const resetAllKeys = () => {
     setKeys({});
@@ -114,7 +111,6 @@ export const KeyboardProvider = ({
       };
     }
 
-    enableAnimations();
     updateKey(event.code, newKeyInfo);
 
     if (isSoundEnabled && !prevKeyInfo?.isDown) {
@@ -185,11 +181,6 @@ export const KeyboardProvider = ({
   React.useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
-
-    const loadedKeys = load();
-    if (loadedKeys) {
-      setKeys(loadedKeys);
-    }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);

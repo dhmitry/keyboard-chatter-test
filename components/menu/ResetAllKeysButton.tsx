@@ -11,9 +11,11 @@ const ResetAllKeysButton = (): JSX.Element => {
   };
 
   return (
-    <MenuButton tooltipText="Reset all keys" onClick={handleClick}>
-      <MdReplay className="h-8 w-8" />
-    </MenuButton>
+    <MenuButton
+      tooltipText="Reset all keys"
+      onClick={handleClick}
+      icon={MdReplay}
+    />
   );
 };
 

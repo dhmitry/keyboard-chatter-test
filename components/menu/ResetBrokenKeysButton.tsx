@@ -11,11 +11,11 @@ const ResetBrokenKeysButton = (): JSX.Element => {
   };
 
   return (
-    <MenuButton tooltipText="Reset broken keys" onClick={handleClick}>
-      <div className="flex h-8 w-8 justify-center">
-        <MdPublishedWithChanges className="h-full w-7" />
-      </div>
-    </MenuButton>
+    <MenuButton
+      tooltipText="Reset broken keys"
+      onClick={handleClick}
+      icon={MdPublishedWithChanges}
+    />
   );
 };
 

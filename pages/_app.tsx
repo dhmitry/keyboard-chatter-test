@@ -1,18 +1,19 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { KeyboardProvider } from '../context/KeyboardContext';
-import { SettingsProvider } from '../context/SettingsContext';
 import Layout from '../components/Layout';
+import { Provider } from 'react-redux';
+import { store } from '../state/store';
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <SettingsProvider>
+    <Provider store={store}>
       <KeyboardProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </KeyboardProvider>
-    </SettingsProvider>
+    </Provider>
   );
 }
 
