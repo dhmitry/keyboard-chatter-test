@@ -1,6 +1,5 @@
 import React, { MouseEvent, ReactElement } from 'react';
 import { IconType } from 'react-icons';
-import { useSettings } from '../context/SettingsContext';
 
 interface IconButtonProps {
   children: ReactElement<IconType>;
@@ -8,8 +7,6 @@ interface IconButtonProps {
 }
 
 const IconButton = ({ children, onClick }: IconButtonProps): JSX.Element => {
-  const { isDarkMode } = useSettings();
-
   const handleMouseDown = (event: MouseEvent) => {
     if (event.detail > 1) {
       event.preventDefault();
@@ -20,13 +17,11 @@ const IconButton = ({ children, onClick }: IconButtonProps): JSX.Element => {
     <div
       onClick={onClick}
       onMouseDown={handleMouseDown}
-      className={`m-1 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 ${
-        isDarkMode ? 'text-slate-100' : 'text-zinc-800'
-      }`}
+      className="m-1 text-zinc-800 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 dark:text-slate-100"
     >
       {children}
     </div>
   );
 };
 
-export default React.memo(IconButton);
+export default IconButton;

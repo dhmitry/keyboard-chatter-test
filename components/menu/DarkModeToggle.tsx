@@ -1,26 +1,23 @@
 import React from 'react';
-import { useSettings } from '../context/SettingsContext';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import MenuButton from './MenuButton';
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
+import { selectIsDarkMode, toggleIsDarkMode } from '../../state/settingsSlice';
 
 const DarkModeToggle = (): JSX.Element => {
-  const { isDarkMode, setIsDarkMode } = useSettings();
+  const isDarkMode = useAppSelector(selectIsDarkMode);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setIsDarkMode(!isDarkMode);
+    dispatch(toggleIsDarkMode());
   };
 
   return (
     <MenuButton
       tooltipText={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
       onClick={handleClick}
-    >
-      {isDarkMode ? (
-        <MdLightMode className="h-8 w-8" />
-      ) : (
-        <MdDarkMode className="h-8 w-8" />
-      )}
-    </MenuButton>
+      icon={isDarkMode ? MdLightMode : MdDarkMode}
+    />
   );
 };
 
