@@ -5,6 +5,7 @@ A simple website to test your keyboard for chatter.
 Built with:
 
 * [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
 * [Next.js](https://nextjs.org/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Tailwind CSS](https://tailwindcss.com/)
