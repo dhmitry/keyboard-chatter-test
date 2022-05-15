@@ -1,26 +1,26 @@
 import React from 'react';
-import { useSettings } from '../context/SettingsContext';
 import { MdVolumeUp, MdVolumeOff } from 'react-icons/md';
 import MenuButton from './MenuButton';
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
+import {
+  selectIsSoundEnabled,
+  toggleIsSoundEnabled,
+} from '../../state/settingsSlice';
 
 const DarkModeToggle = (): JSX.Element => {
-  const { isSoundEnabled, setIsSoundEnabled } = useSettings();
+  const isSoundEnabled = useAppSelector(selectIsSoundEnabled);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setIsSoundEnabled(!isSoundEnabled);
+    dispatch(toggleIsSoundEnabled());
   };
 
   return (
     <MenuButton
       tooltipText={`${isSoundEnabled ? 'Disable' : 'Enable'} sounds`}
       onClick={handleClick}
-    >
-      {isSoundEnabled ? (
-        <MdVolumeOff className="h-8 w-8" />
-      ) : (
-        <MdVolumeUp className="h-8 w-8" />
-      )}
-    </MenuButton>
+      icon={isSoundEnabled ? MdVolumeOff : MdVolumeUp}
+    />
   );
 };
 

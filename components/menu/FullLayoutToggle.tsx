@@ -1,28 +1,27 @@
 import React from 'react';
-import { useSettings } from '../context/SettingsContext';
 import { MdZoomIn, MdZoomOut } from 'react-icons/md';
 import MenuButton from './MenuButton';
+import {
+  selectUseFullLayout,
+  toggleUseFullLayout,
+} from '../../state/settingsSlice';
+import { useAppDispatch, useAppSelector } from '../../state/hooks';
 
 const FullLayoutToggle = (): JSX.Element => {
-  const { useFullLayout, setUseFullLayout } = useSettings();
+  const useFullLayout = useAppSelector(selectUseFullLayout);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setUseFullLayout(!useFullLayout);
+    dispatch(toggleUseFullLayout());
   };
 
-  // TODO: fix tooltip bug when switching
   return (
     <MenuButton
       tooltipText={`Show ${useFullLayout ? '60%' : 'full'} layout`}
       hideTooltipOnClick={true}
       onClick={handleClick}
-    >
-      {useFullLayout ? (
-        <MdZoomIn className="h-8 w-8" />
-      ) : (
-        <MdZoomOut className="h-8 w-8" />
-      )}
-    </MenuButton>
+      icon={useFullLayout ? MdZoomIn : MdZoomOut}
+    />
   );
 };
 

@@ -12,7 +12,7 @@ const Tooltip = ({
   text,
   hideOnClick,
 }: TooltipProps): JSX.Element => {
-  // TODO: come up with a better variable name
+  // TODO: think about implementing tooltips from scratch
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -61,4 +61,4 @@ const Tooltip = ({
   );
 };
 
-export default React.memo(Tooltip);
+export default Tooltip;
