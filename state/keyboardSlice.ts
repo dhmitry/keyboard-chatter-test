@@ -13,7 +13,7 @@ export interface Keys {
   [Key: string]: KeyInfo | undefined;
 }
 
-interface KeyboardState {
+export interface KeyboardState {
   keys: Keys;
   input: string;
 }
