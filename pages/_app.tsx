@@ -4,16 +4,19 @@ import Layout from '../components/Layout';
 import { Provider } from 'react-redux';
 import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import React from 'react';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </PersistGate>
-    </Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>
   );
 };
 
