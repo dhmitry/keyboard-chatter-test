@@ -18,7 +18,6 @@ const FullLayoutToggle = (): JSX.Element => {
   return (
     <MenuButton
       tooltipText={`Show ${useFullLayout ? '60%' : 'full'} layout`}
-      hideTooltipOnClick={true}
       onClick={handleClick}
       icon={useFullLayout ? MdZoomIn : MdZoomOut}
     />

@@ -12,14 +12,13 @@ interface MenuButtonProps {
 
 const MenuButton = ({
   tooltipText,
-  hideTooltipOnClick,
   icon,
   onClick,
 }: MenuButtonProps): JSX.Element => {
   const Icon = icon;
 
   return (
-    <Tooltip text={tooltipText} hideOnClick={hideTooltipOnClick}>
+    <Tooltip text={tooltipText}>
       <IconButton onClick={onClick}>
         <Icon className="h-8 w-8" />
       </IconButton>
