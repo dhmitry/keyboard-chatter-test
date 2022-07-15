@@ -1,29 +1,29 @@
 import React from 'react';
-import IconButton from '../IconButton';
+import MenuIcon from '../MenuIcon';
 import { IconType } from 'react-icons';
 import Tooltip from '../Tooltip';
 
-interface MenuButtonProps {
+interface MenuIconWithTooltipProps {
   tooltipText: string;
   hideTooltipOnClick?: boolean;
   icon: IconType;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-const MenuButton = ({
+const MenuIconWithTooltip = ({
   tooltipText,
   icon,
   onClick,
-}: MenuButtonProps): JSX.Element => {
+}: MenuIconWithTooltipProps): JSX.Element => {
   const Icon = icon;
 
   return (
     <Tooltip text={tooltipText}>
-      <IconButton onClick={onClick}>
+      <MenuIcon onClick={onClick}>
         <Icon className="h-8 w-8" />
-      </IconButton>
+      </MenuIcon>
     </Tooltip>
   );
 };
 
-export default MenuButton;
+export default MenuIconWithTooltip;

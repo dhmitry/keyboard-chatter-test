@@ -1,12 +1,12 @@
 import React, { MouseEvent, ReactElement } from 'react';
 import { IconType } from 'react-icons';
 
-interface IconButtonProps {
+interface MenuIconProps {
   children: ReactElement<IconType>;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-const IconButton = ({ children, onClick }: IconButtonProps): JSX.Element => {
+const MenuIcon = ({ children, onClick }: MenuIconProps): JSX.Element => {
   const handleMouseDown = (event: MouseEvent) => {
     if (event.detail > 1) {
       event.preventDefault();
@@ -24,4 +24,4 @@ const IconButton = ({ children, onClick }: IconButtonProps): JSX.Element => {
   );
 };
 
-export default IconButton;
+export default MenuIcon;

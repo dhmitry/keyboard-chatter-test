@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdZoomIn, MdZoomOut } from 'react-icons/md';
-import MenuButton from './MenuButton';
+import MenuIconWithTooltip from './MenuIconWithTooltip';
 import {
   selectUseFullLayout,
   toggleUseFullLayout,
@@ -16,7 +16,7 @@ const FullLayoutToggle = (): JSX.Element => {
   };
 
   return (
-    <MenuButton
+    <MenuIconWithTooltip
       tooltipText={`Show ${useFullLayout ? '60%' : 'full'} layout`}
       onClick={handleClick}
       icon={useFullLayout ? MdZoomIn : MdZoomOut}

@@ -2,7 +2,7 @@ import React from 'react';
 import { MdPublishedWithChanges } from 'react-icons/md';
 import { useAppDispatch } from '../../state/hooks';
 import { resetBrokenKeys } from '../../state/keyboardSlice';
-import MenuButton from './MenuButton';
+import MenuIconWithTooltip from './MenuIconWithTooltip';
 
 const ResetBrokenKeysButton = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ const ResetBrokenKeysButton = (): JSX.Element => {
   };
 
   return (
-    <MenuButton
+    <MenuIconWithTooltip
       tooltipText="Reset broken keys"
       onClick={handleClick}
       icon={MdPublishedWithChanges}
