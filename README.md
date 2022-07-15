@@ -24,17 +24,6 @@ yarn dev
 
 The production version from the latest commit is built and deployed automatically [here](https://keyboard.dmitrijs.lv).
 
-## TODO
-
-List of things to do when bored:
-- [X] ~~Full ANSI layout~~
-- [X] ~~Light/dark mode toggle~~
-- [X] ~~Save settings to `localStorage`~~
-- [X] ~~Add [popper.js](https://popper.js.org/) for tooltips~~
-- [X] ~~Key press sounds~~
-- [X] ~~Generate sample text for typing~~
-- [x] ~~Use Redux to manage state~~
-
 ## License
 
 See `LICENSE` for more information.
