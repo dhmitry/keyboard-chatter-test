@@ -12,7 +12,15 @@ Built with:
 
 ## Getting Started
 
-1. To run locally, run the development server with the following command:
+1. To run locally, install all dependencies first:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+2. Run the development server with the following command:
 
 ```bash
 npm run dev
@@ -20,7 +28,7 @@ npm run dev
 yarn dev
 ```
 
-2. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 The production version from the latest commit is built and deployed automatically [here](https://keyboard.dmitrijs.lv).
 
