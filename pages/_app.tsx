@@ -6,6 +6,7 @@ import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -16,6 +17,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Component {...pageProps} />
           </Layout>
           <Analytics />
+          <SpeedInsights />
         </PersistGate>
       </Provider>
     </React.StrictMode>
