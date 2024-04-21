@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from '../state/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -14,6 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          <Analytics />
         </PersistGate>
       </Provider>
     </React.StrictMode>
