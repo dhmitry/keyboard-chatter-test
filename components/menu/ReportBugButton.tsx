@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { MdBugReport } from 'react-icons/md';
 import MenuIconWithTooltip from './MenuIconWithTooltip';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import MenuIcon from './MenuIcon';
 import { IconType } from 'react-icons';
 import Tooltip from '../Tooltip';

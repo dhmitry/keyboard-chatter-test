@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement } from 'react';
+import React, { MouseEvent, ReactElement, type JSX } from 'react';
 import { IconType } from 'react-icons';
 
 interface MenuIconProps {

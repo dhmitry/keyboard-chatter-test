@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState, type JSX } from 'react';
 import { useKeyboardListener } from '../hooks/useKeyboardListener';
 import { useAppSelector } from '../state/hooks';
 import { selectIsDarkMode } from '../state/settingsSlice';

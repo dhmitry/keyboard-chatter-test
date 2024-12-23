@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, type JSX } from 'react';
 import { keyHeightStyles, keyWidthStyles } from '../../constants/keyboard';
 import { KeyboardKey } from '../../constants/keyboard';
 import { useAppSelector } from '../../state/hooks';

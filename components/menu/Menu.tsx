@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import FullLayoutToggle from './FullLayoutToggle';
 import Information from './Information';

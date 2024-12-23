@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { KeyboardKeys } from '../../constants/keyboard';
 import Key from './Key';
 import KeyRow from './KeyRow';

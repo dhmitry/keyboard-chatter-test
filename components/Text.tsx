@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, type JSX } from 'react';
 import { words } from '../constants/words';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
-import { clearInput, selectInput } from '../state/keyboardSlice';
+import { clearInput } from '../state/keyboardSlice';
 import Letter from './Letter';
 
 const Text = (): JSX.Element => {

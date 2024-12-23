@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { MdReplay } from 'react-icons/md';
 import { useAppDispatch } from '../../state/hooks';
 import { resetAllKeys } from '../../state/keyboardSlice';

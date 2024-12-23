@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { MdVolumeUp, MdVolumeOff } from 'react-icons/md';
 import MenuIconWithTooltip from './MenuIconWithTooltip';
 import { useAppDispatch, useAppSelector } from '../../state/hooks';

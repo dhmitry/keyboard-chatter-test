@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { useAppSelector } from '../../state/hooks';
 import { selectUseFullLayout } from '../../state/settingsSlice';
 import FullLayout from './FullLayout';
