@@ -20,8 +20,8 @@
   },
   "devDependencies": {
     "@types/howler": "^2.2.12",
-    "@types/node": "^22.10.2",
-    "@types/react": "19.0.2",
+    "@types/node": "^22.10.5",
+    "@types/react": "19.0.3",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
     "eslint-config-next": "15.1.3",
