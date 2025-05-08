@@ -37,7 +37,7 @@ The production version from the latest commit is built and deployed automaticall
 The following tools are used for security analysis:
 - [Dependabot](/.github/dependabot.yml)
 - [Snyk](https://app.snyk.io/)
-- [SonarQube Cloud](https://sonarcloud.io/)
+- [SonarQube Cloud](https://sonarcloud.io/project/overview?id=dhmitry_keyboard-chatter-test)
 
 ## License
 
