@@ -32,6 +32,13 @@ yarn dev
 
 The production version from the latest commit is built and deployed automatically [here](https://keyboard.dmitrijs.lv).
 
+## Security Scan
+
+The following tools are used for security analysis:
+- [Dependabot](/.github/dependabot.yml)
+- [Snyk](https://app.snyk.io/)
+- [SonarQube Cloud](https://sonarcloud.io/)
+
 ## License
 
 See `LICENSE` for more information.
