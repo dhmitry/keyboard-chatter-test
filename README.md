@@ -45,7 +45,7 @@ This project uses semantic commit messages `<type>(<scope>): <subject>`, where `
 - docs: documentation
 - refactor: refactoring
 - test: test coverage
-- chore: build, dependency related changes
+- chore: build, dependencies
 
 ## License
 
