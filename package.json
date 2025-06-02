@@ -11,7 +11,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "howler": "^2.2.4",
-    "next": "15.3.2",
+    "next": "15.3.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
@@ -19,16 +19,16 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.7",
+    "@tailwindcss/postcss": "^4.1.8",
     "@types/howler": "^2.2.12",
-    "@types/node": "^22.15.21",
-    "@types/react": "19.1.5",
+    "@types/node": "^22.15.29",
+    "@types/react": "19.1.6",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.28.0",
-    "eslint-config-next": "15.3.2",
-    "postcss": "^8.5.3",
+    "eslint-config-next": "15.3.3",
+    "postcss": "^8.5.4",
     "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.8.3"
   }
