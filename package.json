@@ -21,7 +21,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.8",
     "@types/howler": "^2.2.12",
-    "@types/node": "^22.15.29",
+    "@types/node": "^22.15.30",
     "@types/react": "19.1.6",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.28.0",
