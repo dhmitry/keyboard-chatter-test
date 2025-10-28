@@ -13,11 +13,11 @@ interface SpacerProps {
 const Spacer = ({ height, width }: SpacerProps): JSX.Element => {
   const widthStyle = useMemo(
     () => (width ? keyWidthStyles[width] : ''),
-    [width]
+    [width],
   );
   const heightStyle = useMemo(
     () => (height ? keyHeightStyles[height] : ''),
-    [height]
+    [height],
   );
 
   return <div className={`${widthStyle} ${heightStyle}`} />;

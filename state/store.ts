@@ -29,11 +29,11 @@ const persistConfigKeyboard: PersistConfig<KeyboardState> = {
 
 const persistedSettingsReducer = persistReducer(
   persistConfigSettings,
-  settingsReducer
+  settingsReducer,
 );
 const persistedKeyboardReducer = persistReducer(
   persistConfigKeyboard,
-  keyboardReducer
+  keyboardReducer,
 );
 
 export const store = configureStore({

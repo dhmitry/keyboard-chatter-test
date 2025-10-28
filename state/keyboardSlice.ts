@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
+import { words } from '../constants/words';
 
 export interface KeyInfo {
   isDown: boolean;
@@ -16,11 +17,26 @@ export interface Keys {
 export interface KeyboardState {
   keys: Keys;
   input: string;
+  expectedText: string;
 }
+
+const WORD_COUNT = 30;
+
+const generateText = (): string => {
+  const selections: string[] = [];
+
+  for (let i = 0; i < WORD_COUNT; i++) {
+    const randomWord = words[Math.floor(Math.random() * words.length)];
+    selections.push(randomWord);
+  }
+
+  return selections.join(' ');
+};
 
 const initialState: KeyboardState = {
   keys: {},
   input: '',
+  expectedText: generateText(),
 };
 
 const keyboardSlice = createSlice({
@@ -98,6 +114,11 @@ const keyboardSlice = createSlice({
     },
     addInput: (state, action: PayloadAction<string>) => {
       state.input += action.payload;
+
+      if (state.input.length >= state.expectedText.length) {
+        state.expectedText = generateText();
+        state.input = '';
+      }
     },
     removeLastInput: (state) => {
       state.input = state.input.substring(0, state.input.length - 1);
@@ -112,6 +133,9 @@ export const selectKey = (state: RootState, key: string) =>
   state.keyboard.keys[key];
 
 export const selectInput = (state: RootState) => state.keyboard.input;
+
+export const selectExpectedText = (state: RootState) =>
+  state.keyboard.expectedText;
 
 export const selectInputCharAt = (state: RootState, index: number) =>
   state.keyboard.input.charAt(index);

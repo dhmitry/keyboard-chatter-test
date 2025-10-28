@@ -15,16 +15,16 @@ const Letter = ({
   actualLetterIndex,
 }: LetterProps): JSX.Element => {
   const isCurrent = useAppSelector((state) =>
-    selectIsLetterCurrent(state, actualLetterIndex)
+    selectIsLetterCurrent(state, actualLetterIndex),
   );
 
   const actualLetter = useAppSelector((state) =>
-    selectInputCharAt(state, actualLetterIndex)
+    selectInputCharAt(state, actualLetterIndex),
   );
 
   const isCorrect = useMemo(
     () => actualLetter === expectedLetter,
-    [actualLetter, expectedLetter]
+    [actualLetter, expectedLetter],
   );
 
   return (
@@ -39,8 +39,8 @@ const Letter = ({
           actualLetter === ''
             ? 'opacity-50'
             : isCorrect
-            ? 'opacity-100'
-            : 'text-red-600'
+              ? 'opacity-100'
+              : 'text-red-600'
         }
         ${isCurrent ? 'border-b-2' : 'border-none'}
       `}

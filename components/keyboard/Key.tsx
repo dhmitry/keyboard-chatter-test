@@ -29,7 +29,7 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
   const width = useMemo(() => keyboardKey?.width ?? '1', [keyboardKey?.width]);
   const height = useMemo(
     () => keyboardKey?.height ?? '1',
-    [keyboardKey?.height]
+    [keyboardKey?.height],
   );
 
   const status = useMemo(() => {
