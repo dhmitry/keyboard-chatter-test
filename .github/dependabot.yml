@@ -14,3 +14,7 @@ updates:
       major:
         update-types:
           - "major"
+    ignore:
+      - dependency-name: "@types/node"
+        versions:
+          - "24.x"
