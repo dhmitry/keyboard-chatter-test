@@ -62,8 +62,12 @@ const keyboardSlice = createSlice({
 
       state.keys[action.payload] = newKeyInfo;
     },
-    handleKeyUp: (state, action: PayloadAction<string>) => {
-      const prevKeyInfo = state.keys[action.payload];
+    handleKeyUp: (
+      state,
+      action: PayloadAction<{ code: string; chatterThresholdMs: number }>,
+    ) => {
+      const { code, chatterThresholdMs } = action.payload;
+      const prevKeyInfo = state.keys[code];
 
       if (prevKeyInfo === undefined) {
         return state;
@@ -77,8 +81,7 @@ const keyboardSlice = createSlice({
       if (prevKeyInfo.lastPress !== undefined) {
         elapsedMs = currentTime - prevKeyInfo.lastPress;
 
-        const chatterThreshold = 60;
-        isDueToChatter = elapsedMs < chatterThreshold;
+        isDueToChatter = elapsedMs < chatterThresholdMs;
 
         minElapsedMs =
           prevKeyInfo.minElapsedMs === undefined
@@ -95,7 +98,7 @@ const keyboardSlice = createSlice({
         minElapsedMs: minElapsedMs,
       };
 
-      state.keys[action.payload] = newKeyInfo;
+      state.keys[code] = newKeyInfo;
     },
     resetAllKeys: (state) => {
       state.keys = {};

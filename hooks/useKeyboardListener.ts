@@ -8,12 +8,16 @@ import {
   handleKeyUp as handleKeyUpAction,
   removeLastInput,
 } from '../state/keyboardSlice';
-import { selectIsSoundEnabled } from '../state/settingsSlice';
+import {
+  selectChatterThreshold,
+  selectIsSoundEnabled,
+} from '../state/settingsSlice';
 
 export const useKeyboardListener = () => {
   const dispatch = useAppDispatch();
 
   const isSoundEnabled = useAppSelector(selectIsSoundEnabled);
+  const chatterThresholdMs = useAppSelector(selectChatterThreshold);
   const [sounds, setSounds] = useState<Howl[]>([]);
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -48,7 +52,12 @@ export const useKeyboardListener = () => {
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
-    dispatch(handleKeyUpAction(event.code));
+    dispatch(
+      handleKeyUpAction({
+        code: event.code,
+        chatterThresholdMs,
+      }),
+    );
     event.preventDefault();
   };
 
@@ -61,5 +70,5 @@ export const useKeyboardListener = () => {
       document.removeEventListener('keyup', handleKeyUp);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSoundEnabled]);
+  }, [chatterThresholdMs, isSoundEnabled]);
 };
