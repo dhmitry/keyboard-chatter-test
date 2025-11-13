@@ -22,28 +22,51 @@ const selectPersistableState = (state: PersistableState): PersistableState => ({
 const parsePersistedState = (
   raw: unknown
 ): Partial<PersistableState> | undefined => {
-  if (!raw || typeof raw !== 'object') {
+  if (!raw || typeof raw !== 'object' || raw === null) {
     return undefined;
   }
 
-  const candidate = raw as Partial<PersistableState>;
+  const candidate = raw as Partial<Record<keyof PersistableState, unknown>>;
+  const result: Partial<PersistableState> = {};
 
-  if (!candidate.settings || !candidate.keyboard) {
-    return undefined;
+  const rawSettings = candidate.settings;
+
+  if (
+    rawSettings &&
+    typeof rawSettings === 'object' &&
+    rawSettings !== null
+  ) {
+    const settingsCandidate = rawSettings as Partial<SettingsState>;
+
+    if (
+      typeof settingsCandidate.isDarkMode === 'boolean' &&
+      typeof settingsCandidate.isSoundEnabled === 'boolean' &&
+      typeof settingsCandidate.useFullLayout === 'boolean'
+    ) {
+      result.settings = {
+        isDarkMode: settingsCandidate.isDarkMode,
+        isSoundEnabled: settingsCandidate.isSoundEnabled,
+        useFullLayout: settingsCandidate.useFullLayout,
+      };
+    }
   }
 
-  const keys =
-    typeof candidate.keyboard.keys === 'object' && candidate.keyboard.keys !== null
-      ? candidate.keyboard.keys
-      : {};
+  const rawKeyboard = candidate.keyboard;
 
-  return {
-    settings: candidate.settings,
-    keyboard: {
+  if (rawKeyboard && typeof rawKeyboard === 'object' && rawKeyboard !== null) {
+    const keyboardCandidate = rawKeyboard as Partial<KeyboardState>;
+    const keys =
+      keyboardCandidate.keys && typeof keyboardCandidate.keys === 'object'
+        ? keyboardCandidate.keys
+        : {};
+
+    result.keyboard = {
       input: '',
       keys,
-    },
-  };
+    };
+  }
+
+  return Object.keys(result).length > 0 ? result : undefined;
 };
 
 const preloadedState = loadPersistedState(parsePersistedState);
