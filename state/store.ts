@@ -1,55 +1,66 @@
 import { configureStore } from '@reduxjs/toolkit';
 import settingsReducer, { SettingsState } from './settingsSlice';
 import keyboardReducer, { KeyboardState } from './keyboardSlice';
-import storage from 'redux-persist/lib/storage';
 import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  PersistConfig,
-} from 'redux-persist';
+  loadPersistedState,
+  setupStorePersistence,
+} from './persistence';
 
-const persistConfigSettings: PersistConfig<SettingsState> = {
-  key: 'settings',
-  version: 1,
-  storage,
+interface PersistableState {
+  settings: SettingsState;
+  keyboard: KeyboardState;
+}
+
+const selectPersistableState = (state: PersistableState): PersistableState => ({
+  settings: state.settings,
+  keyboard: {
+    ...state.keyboard,
+    input: '',
+  },
+});
+
+const parsePersistedState = (
+  raw: unknown
+): Partial<PersistableState> | undefined => {
+  if (!raw || typeof raw !== 'object') {
+    return undefined;
+  }
+
+  const candidate = raw as Partial<PersistableState>;
+
+  if (!candidate.settings || !candidate.keyboard) {
+    return undefined;
+  }
+
+  const keys =
+    typeof candidate.keyboard.keys === 'object' && candidate.keyboard.keys !== null
+      ? candidate.keyboard.keys
+      : {};
+
+  return {
+    settings: candidate.settings,
+    keyboard: {
+      input: '',
+      keys,
+    },
+  };
 };
 
-const persistConfigKeyboard: PersistConfig<KeyboardState> = {
-  key: 'keyboard',
-  version: 1,
-  storage,
-  blacklist: ['input'],
-};
-
-const persistedSettingsReducer = persistReducer(
-  persistConfigSettings,
-  settingsReducer
-);
-const persistedKeyboardReducer = persistReducer(
-  persistConfigKeyboard,
-  keyboardReducer
-);
+const preloadedState = loadPersistedState(parsePersistedState);
 
 export const store = configureStore({
   reducer: {
-    settings: persistedSettingsReducer,
-    keyboard: persistedKeyboardReducer,
+    settings: settingsReducer,
+    keyboard: keyboardReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  preloadedState,
 });
 
-export const persistor = persistStore(store);
+setupStorePersistence(
+  store.subscribe,
+  store.getState,
+  (state) => selectPersistableState(state as PersistableState)
+);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
