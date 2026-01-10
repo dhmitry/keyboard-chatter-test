@@ -17,5 +17,4 @@ updates:
     ignore:
       - dependency-name: "@types/node"
         versions:
-          - "24.x"
           - "25.x"
