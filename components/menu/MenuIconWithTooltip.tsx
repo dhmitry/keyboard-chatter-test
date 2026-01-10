@@ -5,7 +5,6 @@ import Tooltip from '../Tooltip';
 
 interface MenuIconWithTooltipProps {
   tooltipText: string;
-  hideTooltipOnClick?: boolean;
   icon: IconType;
   onClick?: () => void;
 }
@@ -19,7 +18,7 @@ const MenuIconWithTooltip = ({
 
   return (
     <Tooltip text={tooltipText}>
-      <MenuIcon onClick={onClick}>
+      <MenuIcon ariaLabel={tooltipText} onClick={onClick}>
         <Icon className="h-8 w-8" />
       </MenuIcon>
     </Tooltip>

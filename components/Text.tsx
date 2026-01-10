@@ -8,8 +8,12 @@ const Text = (): JSX.Element => {
 
   return (
     <div className="mb-4 max-w-4xl select-none font-mono text-2xl tracking-wider text-zinc-600 dark:text-slate-200">
-      {text.split('').map((c, i) => (
-        <Letter key={i} expectedLetter={c} actualLetterIndex={i} />
+      {text.split('').map((letter, index) => (
+        <Letter
+          key={`${index}-${letter}`}
+          expectedLetter={letter}
+          actualLetterIndex={index}
+        />
       ))}
     </div>
   );
