@@ -23,7 +23,7 @@
     "@tailwindcss/postcss": "^4.1.18",
     "@types/howler": "^2.2.12",
     "@types/node": "^24.10.6",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.1",
