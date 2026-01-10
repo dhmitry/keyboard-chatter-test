@@ -1,6 +1,9 @@
 import React, { useMemo, type JSX } from 'react';
-import { keyHeightStyles, keyWidthStyles } from '../../constants/keyboard';
-import { KeyboardKey } from '../../constants/keyboard';
+import {
+  KeyboardKey,
+  keyHeightStyles,
+  keyWidthStyles,
+} from '../../constants/keyboard';
 import { useAppSelector } from '../../state/hooks';
 import { selectKey } from '../../state/keyboardSlice';
 import Tooltip from '../Tooltip';
@@ -25,6 +28,10 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
     [Status.Healthy]: 'text-green-600',
     [Status.Broken]: 'text-red-600',
   };
+
+  const minElapsedMs = keyInfo?.minElapsedMs;
+  const pressCount = keyInfo?.pressCount ?? 0;
+  const chatterCount = keyInfo?.chatterCount ?? 0;
 
   const width = useMemo(() => keyboardKey?.width ?? '1', [keyboardKey?.width]);
   const height = useMemo(
@@ -56,13 +63,12 @@ const Key = ({ keyboardKey }: KeyProps): JSX.Element => {
             <p>
               &apos;{keyboardKey.text}&apos; - {status}
             </p>
-            {keyInfo && keyInfo.minElapsedMs && (
+            {minElapsedMs !== undefined && (
               <>
                 <p>
-                  {keyInfo.pressCount} presses ({keyInfo.chatterCount} due to
-                  chatter)
+                  {pressCount} presses ({chatterCount} due to chatter)
                 </p>
-                <p>Min elapsed: {keyInfo.minElapsedMs}ms</p>
+                <p>Min elapsed: {minElapsedMs}ms</p>
               </>
             )}
           </>

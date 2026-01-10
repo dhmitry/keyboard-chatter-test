@@ -2,11 +2,16 @@ import React, { MouseEvent, ReactElement, type JSX } from 'react';
 import { IconType } from 'react-icons';
 
 interface MenuIconProps {
+  ariaLabel?: string;
   children: ReactElement<IconType>;
   onClick?: () => void;
 }
 
-const MenuIcon = ({ children, onClick }: MenuIconProps): JSX.Element => {
+const MenuIcon = ({
+  ariaLabel,
+  children,
+  onClick,
+}: MenuIconProps): JSX.Element => {
   const handleMouseDown = (event: MouseEvent) => {
     if (event.detail > 1) {
       event.preventDefault();
@@ -14,13 +19,15 @@ const MenuIcon = ({ children, onClick }: MenuIconProps): JSX.Element => {
   };
 
   return (
-    <div
+    <button
+      type="button"
+      aria-label={ariaLabel}
       onClick={onClick}
       onMouseDown={handleMouseDown}
-      className="m-1 text-zinc-800 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 dark:text-slate-100"
+      className="m-1 border-0 bg-transparent p-0 text-zinc-800 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 dark:text-slate-100"
     >
       {children}
-    </div>
+    </button>
   );
 };
 

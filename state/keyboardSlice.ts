@@ -73,7 +73,7 @@ const keyboardSlice = createSlice({
         return state;
       }
 
-      const currentTime = new Date().valueOf();
+      const currentTime = Date.now();
       let elapsedMs;
       let minElapsedMs;
       let isDueToChatter = false;
