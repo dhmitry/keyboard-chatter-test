@@ -24,7 +24,7 @@ const MenuIcon = ({
       aria-label={ariaLabel}
       onClick={onClick}
       onMouseDown={handleMouseDown}
-      className="m-1 border-0 bg-transparent p-0 text-zinc-800 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 dark:text-slate-100"
+      className="m-1 block border-0 bg-transparent p-0 text-zinc-800 opacity-70 transition-opacity duration-300 hover:cursor-pointer hover:opacity-100 dark:text-slate-100"
     >
       {children}
     </button>
