@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { KeyboardKeys } from '../constants/keyboard';
 import { useAppDispatch, useAppSelector } from '../state/hooks';
 import {
@@ -7,6 +7,7 @@ import {
   handleKeyDown as handleKeyDownAction,
   handleKeyUp as handleKeyUpAction,
   removeLastInput,
+  removeLastWordInput,
 } from '../state/keyboardSlice';
 import {
   selectChatterThreshold,
@@ -19,6 +20,7 @@ export const useKeyboardListener = () => {
   const isSoundEnabled = useAppSelector(selectIsSoundEnabled);
   const chatterThresholdMs = useAppSelector(selectChatterThreshold);
   const [sounds, setSounds] = useState<Howl[]>([]);
+  const isCtrlPressed = useRef(false);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     dispatch(handleKeyDownAction(event.code));
@@ -43,7 +45,9 @@ export const useKeyboardListener = () => {
     }
 
     if (event.key === KeyboardKeys['Backspace'].code) {
-      dispatch(removeLastInput());
+      dispatch(isCtrlPressed.current ? removeLastWordInput() : removeLastInput());
+    } else if (event.key === "Control" && !isCtrlPressed.current) {
+      isCtrlPressed.current = true;
     } else if (event.key.length === 1) {
       dispatch(addInput(event.key));
     }
@@ -52,6 +56,9 @@ export const useKeyboardListener = () => {
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === "Control" && isCtrlPressed.current) {
+      isCtrlPressed.current = false;
+    }
     dispatch(
       handleKeyUpAction({
         code: event.code,
