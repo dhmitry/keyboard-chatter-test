@@ -6,6 +6,7 @@ import ResetAllKeysButton from './ResetAllKeysButton';
 import ResetBrokenKeysButton from './ResetBrokenKeysButton';
 import SoundToggle from './SoundToggle';
 import ReportBugButton from './ReportBugButton';
+import SupportProjectButton from './SupportProjectButton';
 import ChatterThresholdSlider from './ChatterThresholdSlider';
 
 const Menu = (): JSX.Element => (
@@ -21,6 +22,7 @@ const Menu = (): JSX.Element => (
       <div className="ml-4 flex flex-row">
         <Information />
         <ReportBugButton />
+        <SupportProjectButton />
       </div>
     </div>
     <ChatterThresholdSlider />
