@@ -126,6 +126,12 @@ const keyboardSlice = createSlice({
     removeLastInput: (state) => {
       state.input = state.input.substring(0, state.input.length - 1);
     },
+    removeLastWordInput: (state) => {
+      const input = state.input.trimEnd();
+      const lastSpace = input.lastIndexOf(' ');
+
+      state.input = lastSpace === -1 ? '' : input.slice(0, lastSpace + 1);
+    },
     clearInput: (state) => {
       state.input = '';
     },
@@ -153,6 +159,7 @@ export const {
   resetBrokenKeys,
   addInput,
   removeLastInput,
+  removeLastWordInput,
   clearInput,
 } = keyboardSlice.actions;
 

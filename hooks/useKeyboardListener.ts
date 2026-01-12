@@ -7,6 +7,7 @@ import {
   handleKeyDown as handleKeyDownAction,
   handleKeyUp as handleKeyUpAction,
   removeLastInput,
+  removeLastWordInput,
 } from '../state/keyboardSlice';
 import {
   selectChatterThreshold,
@@ -43,7 +44,7 @@ export const useKeyboardListener = () => {
     }
 
     if (event.key === KeyboardKeys['Backspace'].code) {
-      dispatch(removeLastInput());
+      dispatch(event.ctrlKey ? removeLastWordInput() : removeLastInput());
     } else if (event.key.length === 1) {
       dispatch(addInput(event.key));
     }
