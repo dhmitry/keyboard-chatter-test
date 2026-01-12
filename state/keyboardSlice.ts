@@ -127,12 +127,10 @@ const keyboardSlice = createSlice({
       state.input = state.input.substring(0, state.input.length - 1);
     },
     removeLastWordInput: (state) => {
-      if (state.input.length === 0) return;
-      let i = state.input.length;
+      const input = state.input.trimEnd();
+      const lastSpace = input.lastIndexOf(' ');
 
-      while (i > 0 && state.input[i - 1] === ' ') i--;
-      while (i > 0 && state.input[i - 1] !== ' ') i--;
-      state.input = state.input.substring(0, i);
+      state.input = lastSpace === -1 ? '' : input.slice(0, lastSpace + 1);
     },
     clearInput: (state) => {
       state.input = '';
