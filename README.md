@@ -1,4 +1,4 @@
-# Description
+# Keyboard Chatter Test
 
 A simple website to test your keyboard for chatter.
 
@@ -38,17 +38,9 @@ The following tools are used for code and security analysis:
 
 ## Contributing
 
-If you have a suggestion feel free to open an issue and create a pull request.
-
-This project uses semantic commit messages `<type>(<scope>): <subject>`, where `<type>` is:
-
-- feat: new feature
-- fix: bug fix
-- docs: documentation
-- refactor: refactoring
-- test: test coverage
-- chore: build, dependencies
+See [CONTRIBUTING.md](CONTRIBUTING.md) for issues, naming, and pull request
+guidelines. Agent instructions live in [AGENTS.md](AGENTS.md).
 
 ## License
 
-See `LICENSE` for more information.
+See [LICENSE](LICENSE) for more information.
