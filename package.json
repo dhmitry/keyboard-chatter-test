@@ -34,7 +34,5 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
-  "allowScripts": {
-    "unrs-resolver@1.11.1": true
-  }
+  "packageManager": "pnpm@12.10.1"
 }

@@ -12,21 +12,29 @@ Built with:
 
 ## Getting Started
 
+Use pnpm 12.10.1, pinned in `package.json`. Install it with
+`npm install --global pnpm@12.10.1`, or use Corepack to select the pinned version.
+
 1. To run locally, install all dependencies first:
 
 ```bash
-npm install
+pnpm install
 ```
 
 2. Run the development server with the following command:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 The production version from the latest commit is built and deployed automatically [here](https://keyboard.dmitrijs.lv).
+
+Commit `pnpm-lock.yaml`; deployments use `pnpm install --frozen-lockfile`.
+On Vercel, enable Corepack with the project environment variable
+`ENABLE_EXPERIMENTAL_COREPACK=1` to use the version pinned in `package.json`.
+Leave the install command override disabled so Vercel detects pnpm automatically.
 
 ## Code Analysis
 

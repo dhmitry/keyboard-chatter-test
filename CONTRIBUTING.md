@@ -39,8 +39,8 @@ Follow the setup instructions in [README.md](README.md). Before requesting revie
 run:
 
 ```bash
-npm run lint
-npm run build
+pnpm lint
+pnpm build
 ```
 
 There is no automated test runner configured. Document relevant manual checks,

@@ -8,12 +8,12 @@
 
 ## Build, Test, and Development Commands
 
-- `npm install` installs dependencies; rerun after lockfile updates or Node changes.
-- `npm run dev` launches the Turbopack dev server on `http://localhost:3000`.
-- `npm run build` creates the production bundle; address warnings before merging.
-- `npm start` serves the built bundle for a production sanity check.
-- `npm run lint` runs ESLint via `eslint.config.mjs`.
-- `npm run format` applies Prettier with the Tailwind class sorter; keep formatting commits focused.
+- `pnpm install` installs dependencies; rerun after lockfile updates or Node changes.
+- `pnpm dev` launches the Turbopack dev server on `http://localhost:3000`.
+- `pnpm build` creates the production bundle; address warnings before merging.
+- `pnpm start` serves the built bundle for a production sanity check.
+- `pnpm lint` runs ESLint via `eslint.config.mjs`.
+- `pnpm format` applies Prettier with the Tailwind class sorter; keep formatting commits focused.
 
 ## Coding Style & Naming Conventions
 
@@ -23,9 +23,9 @@
 
 ## Testing Guidelines
 
-- No automated test runner is configured yet. When adding tests, create colocated files like `Text.test.tsx` and add an `npm test` script in `package.json`.
+- No automated test runner is configured yet. When adding tests, create colocated files like `Text.test.tsx` and add an `pnpm test` script in `package.json`.
 - Document manual verification (key press scenarios, audio checks, persistence) in each pull request until automation exists.
-- Always run `npm run build` before requesting review to catch type or Next.js regressions.
+- Always run `pnpm build` before requesting review to catch type or Next.js regressions.
 
 ## Commit & Pull Request Guidelines
 
